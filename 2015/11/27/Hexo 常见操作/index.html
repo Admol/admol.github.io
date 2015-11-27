@@ -1,0 +1,482 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>记使用Hexo快速搭建一个博客,并部署到github | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="本文旨在记录一下我在通过hexo搭建一个博客,并将其部署在github上面的过程,也供我自己在以后的使用过程中能够快速学习和参考.需要看更详细或者官方文档的可以点击Hexo官方文档进行查看. 
+
+安装前提安装 Hexo 非常简单。需要预先安装:
+Node.jsGit
+
+准备条件做好了之后就可以开始安装Hexo了
+安装Hexo打开Git Bash 执行命令1$ npm install -g hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记使用Hexo快速搭建一个博客,并部署到github">
+<meta property="og:url" content="http://yoursite.com/2015/11/27/Hexo 常见操作/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="本文旨在记录一下我在通过hexo搭建一个博客,并将其部署在github上面的过程,也供我自己在以后的使用过程中能够快速学习和参考.需要看更详细或者官方文档的可以点击Hexo官方文档进行查看. 
+
+安装前提安装 Hexo 非常简单。需要预先安装:
+Node.jsGit
+
+准备条件做好了之后就可以开始安装Hexo了
+安装Hexo打开Git Bash 执行命令1$ npm install -g hexo">
+<meta property="og:image" content="http://yoursite.com/img/Create_a_new_repository.png">
+<meta property="og:image" content="http://yoursite.com/img/set_ssh_key_success.png">
+<meta property="og:updated_time" content="2015-11-27T14:05:46.488Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记使用Hexo快速搭建一个博客,并部署到github">
+<meta name="twitter:description" content="本文旨在记录一下我在通过hexo搭建一个博客,并将其部署在github上面的过程,也供我自己在以后的使用过程中能够快速学习和参考.需要看更详细或者官方文档的可以点击Hexo官方文档进行查看. 
+
+安装前提安装 Hexo 非常简单。需要预先安装:
+Node.jsGit
+
+准备条件做好了之后就可以开始安装Hexo了
+安装Hexo打开Git Bash 执行命令1$ npm install -g hexo">
+
+    
+    
+    <link rel="icon" href="/img/qq.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/qq.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/qq.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/27/Hexo 常见操作/" title="记使用Hexo快速搭建一个博客,并部署到github" itemprop="url">记使用Hexo快速搭建一个博客,并部署到github</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-27T14:05:46.556Z" itemprop="datePublished"> 发表于 2015-11-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装前提"><span class="toc-number">1.</span> <span class="toc-text">安装前提</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Hexo"><span class="toc-number">2.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建博客"><span class="toc-number">3.</span> <span class="toc-text">创建博客</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地预览"><span class="toc-number">4.</span> <span class="toc-text">本地预览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建Repository"><span class="toc-number">5.</span> <span class="toc-text">创建Repository</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置SSH_key"><span class="toc-number">6.</span> <span class="toc-text">设置SSH key</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#部署到Github"><span class="toc-number">7.</span> <span class="toc-text">部署到Github</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文旨在记录一下我在通过hexo搭建一个博客,并将其部署在github上面的过程,也供我自己在以后的使用过程中能够快速学习和参考.需要看更详细或者官方文档的可以点击<a href="hexo.io/zh-cn/docs/">Hexo官方文档</a>进行查看. </p>
+<p><br></p>
+<h4 id="安装前提">安装前提</h4><p>安装 Hexo 非常简单。需要预先安装:</p>
+<ul><li><a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a></li><li><a href="http://git-scm.com/" target="_blank" rel="external">Git</a></li></ul>
+
+<p>准备条件做好了之后就可以开始安装Hexo了<br><br></p>
+<h4 id="安装Hexo">安装Hexo</h4><p>打开Git Bash 执行命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建博客">创建博客</h4><p>Hexo安装完成后,分别执行如下命令,Hexo会自动生成需要的文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;  <span class="comment">##&lt;folder&gt; 为你指定的文件地址</span></span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>例如:需要将博客搭建在本地的D:\my_hexo下,则分别执行命令:<code>hexo init D:\my_hexo</code> ,<code>cd D:\my_hexo</code>,<code>npm install</code><br>执行完命令后如果没有问题我们就可以执行启动命令来查看我们的博客了.<br><br>  </p>
+<h4 id="本地预览">本地预览</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server 			<span class="comment">## 启动服务,默认端口4000</span></span><br><span class="line">$ hexo server -p xxxx   	<span class="comment">## 自定义端口启动服务</span></span><br><span class="line">$ hexo  clean  			<span class="comment">## 清除缓存,在页面显示不正常的时候可以执行此命令</span></span><br></pre></td></tr></table></figure>
+<p>然后在浏览器输入<a href="http://127.0.0.1:4000/" target="_blank" rel="external">http://127.0.0.1:4000/</a> 即可访问<br><br></p>
+<h4 id="创建Repository">创建Repository</h4><ol>
+<li>登录github 点击右上角的”+”,Create a new repository</li>
+</ol>
+<p><img src="/img/Create_a_new_repository.png" alt="Create a new repository"></p>
+<ol>
+<li>复制刚刚新建的https连接:<code>https://github.com/Admol/admol.github.io.git</code></li>
+<li>打开你hexo目录下的<code>_config.yml</code></li>
+<li>设置deploy信息,如:<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/Admol/admol.github.io.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><br>  </p>
+<h4 id="设置SSH_key">设置SSH key</h4><ol>
+<li><p>检验是否已存在key<br>分别执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line"><span class="built_in">cd</span>  .ssh</span><br></pre></td></tr></table></figure>
+<p>再执行命令 <code>ls</code> 查看是有已有key文件,一般存在key的话都会显示<code>id_rsa.pub</code> 和 <code>id_dsa.pub</code>这两个文件,没有key什么都不会显示</p>
+</li>
+<li><p>添加一个 SSH key</p>
+<p>执行命令(已有key的可以跳过步骤2):</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-keygen -t rsa -<span class="constant">C </span><span class="string">"your_email@mail.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##  t 指定密钥类型，默认是 rsa ，可以省略。 -C 设置注释文字，比如邮箱或其他。</span></span><br></pre></td></tr></table></figure>
+<p>然后会提示你 <code>Enter Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter</code>,这里是输入一个文件名用来保存ssh key,也可以什么都不输,会使用默认的<code>id_rsa.pub</code> 和 <code>id_dsa.pub</code></p>
+<p>回车之后,需要输入两次密码(该密码是你push文件的时候要输入的密码，而不是github的密码)<br>输入密码之后,看见如下显示信息,添加SSH key成功.<br><img src="/img/set_ssh_key_success.png"></p>
+</li>
+<li><p>Github 设置 SSH key</p>
+<p>登录github,点击<code>Settings</code>,然后点击 <code>SSH keys</code> ,在这个页面你可以管理你所有的ssh keys<br>然后点击<code>Add SSH key</code><br>用文本编辑器打开刚刚添加的key文件<code>id_rsa.pub</code>,复制里面的所有的内容<br>回到github页面,将复制的内容粘贴到刚刚那个页面的key对应的文本框里面,title 可以随便填写</p>
+</li>
+<li><p>测试ssh key 是否添加成功<br>在命令行输入:</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh -<span class="constant">T</span> git<span class="variable">@github</span>.com</span><br></pre></td></tr></table></figure>
+<p>会出现一段警告代码,输入yes回车,然后会要求你输入刚刚设置的密码,然后它会和你说:<code>Hi,帅哥....约吗</code><br><br> </p>
+</li>
+</ol>
+<p>到此SSH key就设置完毕了<br><br></p>
+<h4 id="部署到Github">部署到Github</h4><p>  打开命令窗口,回到你的hexo博客目录下,如别执行如下命令:<br>     <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">hexo</span> generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
+<p>  等待命令执行完毕后,可以查看代码是否已提交到github上,然后在浏览器输入admol.github.io就可以访问了</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Hexo/">Hexo</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/11/27/Hexo 常见操作/" data-title="记使用Hexo快速搭建一个博客,并部署到github | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/27/Hexo 常见操作/" data-title="记使用Hexo快速搭建一个博客,并部署到github" data-url="http://yoursite.com/2015/11/27/Hexo 常见操作/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装前提"><span class="toc-number">1.</span> <span class="toc-text">安装前提</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Hexo"><span class="toc-number">2.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建博客"><span class="toc-number">3.</span> <span class="toc-text">创建博客</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地预览"><span class="toc-number">4.</span> <span class="toc-text">本地预览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建Repository"><span class="toc-number">5.</span> <span class="toc-text">创建Repository</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置SSH_key"><span class="toc-number">6.</span> <span class="toc-text">设置SSH key</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#部署到Github"><span class="toc-number">7.</span> <span class="toc-text">部署到Github</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:wjl@wangjingling.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
