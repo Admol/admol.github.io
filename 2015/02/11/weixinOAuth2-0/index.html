@@ -1,0 +1,518 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>微信网页登录授权获取用户信息 | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="微信公众平台开发者文档
+
+登录微信公众平台
+
+点击开发者中心
+
+点击修改
+
+填写授权回调页面域名，我写的是我本机的局域网IP地址
+
+
+然后点击确定
+
+诱导用户微信打开授权页面诱导地址:
+1https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;amp;redirect_uri=REDIRECT_URI&amp;amp;response">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信网页登录授权获取用户信息">
+<meta property="og:url" content="http://wangjingling.com/2015/02/11/weixinOAuth2-0/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="微信公众平台开发者文档
+
+登录微信公众平台
+
+点击开发者中心
+
+点击修改
+
+填写授权回调页面域名，我写的是我本机的局域网IP地址
+
+
+然后点击确定
+
+诱导用户微信打开授权页面诱导地址:
+1https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;amp;redirect_uri=REDIRECT_URI&amp;amp;response">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/weixin_img1.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/weixin_img3.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/weixin_img2.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/weixin_img4.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/code_canshu.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/canshu_back_code.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/weixin_img5.png">
+<meta property="og:image" content="http://wangjingling.com/img/img_weixin/weixin_img6.png">
+<meta property="og:updated_time" content="2015-11-30T04:44:45.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信网页登录授权获取用户信息">
+<meta name="twitter:description" content="微信公众平台开发者文档
+
+登录微信公众平台
+
+点击开发者中心
+
+点击修改
+
+填写授权回调页面域名，我写的是我本机的局域网IP地址
+
+
+然后点击确定
+
+诱导用户微信打开授权页面诱导地址:
+1https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;amp;redirect_uri=REDIRECT_URI&amp;amp;response">
+
+    
+    
+    <link rel="icon" href="/img/Monkey.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/Monkey.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto">学而不思则罔,思而不学则殆</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:wangjingling.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/11/weixinOAuth2-0/" title="微信网页登录授权获取用户信息" itemprop="url">微信网页登录授权获取用户信息</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-11T08:21:00.000Z" itemprop="datePublished"> 发表于 2015-02-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p><a href="http://mp.weixin.qq.com/wiki/home/" target="_blank" rel="external">微信公众平台开发者文档</a></p>
+<ol>
+<li><p>登录<a href="https://mp.weixin.qq.com/" target="_blank" rel="external">微信公众平台</a></p>
+</li>
+<li><p>点击开发者中心<br><img src="/img/img_weixin/weixin_img1.png"></p>
+</li>
+<li><p>点击修改<br><img src="/img/img_weixin/weixin_img3.png"></p>
+</li>
+<li><p>填写授权回调页面域名，我写的是我本机的局域网IP地址<br><img src="/img/img_weixin/weixin_img2.png"></p>
+</li>
+</ol>
+<p>然后点击确定</p>
+<ol>
+<li><p>诱导用户微信打开授权页面<br>诱导地址:</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;<span class="keyword">state</span>=STATE<span class="comment">#wechat_redirect</span></span><br></pre></td></tr></table></figure>
+<p>用户点击后会看到如下类似页面:<br><img src="/img/img_weixin/weixin_img4.png"></p>
+<p>如果用户同意授权，页面将跳转至 <code>redirect_uri/?code=CODE&amp;state=STATE</code>。<br>若用户禁止授权，则重定向后不会带上code参数，仅会带上state参数<code>redirect_uri?state=STATE</code><br>code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</p>
+</li>
+<li><p>通过code获取网页授权access_token<br>在上一步获取code后，请求以下链接获取access_token： </p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">https:</span>/<span class="regexp">/api.weixin.qq.com/sns</span><span class="regexp">/oauth2/access</span>_token?appid=<span class="constant">APPID</span>&amp;secret=<span class="constant">SECRET</span>&amp;code=<span class="constant">CODE</span>&amp;grant_type=authorization_code</span><br></pre></td></tr></table></figure>
+<p>参数说明<br><img src="/img/img_weixin/code_canshu.png"><br><b>返回说明</b><br>正确时返回的JSON数据包如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">"<span class="attribute">access_token</span>":<span class="value"><span class="string">"ACCESS_TOKEN"</span></span>,</span><br><span class="line">"<span class="attribute">expires_in</span>":<span class="value"><span class="number">7200</span></span>,</span><br><span class="line">"<span class="attribute">refresh_token</span>":<span class="value"><span class="string">"REFRESH_TOKEN"</span></span>,</span><br><span class="line">"<span class="attribute">openid</span>":<span class="value"><span class="string">"OPENID"</span></span>,</span><br><span class="line">"<span class="attribute">scope</span>":<span class="value"><span class="string">"SCOPE"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/img_weixin/canshu_back_code.png"></p>
+</li>
+<li><p>拉取用户信息<br>如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了。<br><strong>请求方法</strong><br>http：GET（请使用https协议）</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">https:</span><span class="comment">//api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</span></span><br></pre></td></tr></table></figure>
+<p><strong>参数说明</strong><br>access_token:网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同<br>openid:用户的唯一标识<br>lang:返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语<br><strong>返回说明</strong><br>正确时返回的JSON数据包如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> "<span class="attribute">openid</span>":<span class="value"><span class="string">" OPENID"</span></span>,</span><br><span class="line"> "<span class="attribute"> nickname</span>": <span class="value">NICKNAME</span>,</span><br><span class="line"> "<span class="attribute">sex</span>":<span class="value"><span class="string">"1"</span></span>,</span><br><span class="line"> "<span class="attribute">province</span>":<span class="value"><span class="string">"PROVINCE"</span></span><br><span class="line"> <span class="string">"city"</span>:<span class="string">"CITY"</span></span>,</span><br><span class="line"> "<span class="attribute">country</span>":<span class="value"><span class="string">"COUNTRY"</span></span>,</span><br><span class="line">  "<span class="attribute">headimgurl</span>":    <span class="value"><span class="string">"http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46"</span></span>, </span><br><span class="line">      "<span class="attribute">privilege</span>":<span class="value">[</span><br><span class="line">      <span class="string">"PRIVILEGE1"</span></span><br><span class="line">      <span class="string">"PRIVILEGE2"</span></span><br><span class="line">  ]</span><br><span class="line">  <span class="string">"unionid"</span>: <span class="string">"o6_bmasdasdsad6_2sgVt7hMZOPfL"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>部分代码:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">   * 获取微信登录用户信息</span><br><span class="line">   * @param code</span><br><span class="line">   * @param request</span><br><span class="line">   * @param response</span><br><span class="line">   * @throws IOException</span><br><span class="line">   * @throws ServletException</span><br><span class="line">   */</span></span><br><span class="line">  @RequestMapping(value= <span class="string">"vote/getCode"</span>)</span><br><span class="line">  public void getCode(String code,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException&#123;</span><br><span class="line">        System. <span class="keyword">out</span>.println(code);</span><br><span class="line">        <span class="comment">//https://open.weixin.qq.com/connect/oauth2/authorize?appid=<span class="label">XXXXXXX&amp;redirect_uri=http://192.168.246.172/business/vote/getCode.do&amp;response_type=code&amp;scope=snsapi_userinfo &amp;state=STATE#wechat_redirect</span></span></span><br><span class="line">        <span class="comment">//格式https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code</span></span><br><span class="line">        <span class="comment">//1.通过code换取网页授权access_token的URL连接</span></span><br><span class="line">        tokenUrl = <span class="string">"https://api.weixin.qq.com/sns/oauth2/access_token?appid="</span> +WeixinConf.AppID+<span class="string">"&amp;secret="</span>+WeixinConf. AppSecret+ <span class="string">"&amp;code="</span>+code+ <span class="string">"&amp;grant_type=authorization_code"</span>;</span><br><span class="line">        <span class="comment">//System.out.println("拼接后的token连接：" + tokenUrl);</span></span><br><span class="line">        <span class="comment">//获取access_token</span></span><br><span class="line">        <span class="keyword">token</span> = WebUtils. getUrlReturnData(tokenUrl);</span><br><span class="line">        access_token = <span class="keyword">token</span>.substring( <span class="keyword">token</span>.indexOf( <span class="string">"\"</span>:\<span class="string">""</span>) + 3 , <span class="keyword">token</span>.indexOf( <span class="string">"\"</span>,\<span class="string">""</span>));</span><br><span class="line">        openId = <span class="keyword">token</span>.substring( <span class="keyword">token</span>.indexOf( <span class="string">"openid\"</span>:\<span class="string">""</span>)+9,<span class="keyword">token</span> .indexOf(<span class="string">"\"</span>,\<span class="string">"scope\"</span>" ));</span><br><span class="line">        <span class="comment">//2.获取用户信息 请求格式：https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</span></span><br><span class="line">        String userUrl = <span class="string">"https://api.weixin.qq.com/sns/userinfo?access_token="</span> +access_token +<span class="string">"&amp;openid="</span> +openId +<span class="string">"&amp;lang=zh_CN"</span> ;</span><br><span class="line">        String userInfo = WebUtils. getUrlReturnData(userUrl);</span><br><span class="line">        nickname = userInfo.substring(userInfo.indexOf(<span class="string">"nickname\"</span>:\<span class="string">""</span> )+11,userInfo.indexOf(<span class="string">"\"</span>,\<span class="string">"sex"</span> ));</span><br><span class="line">        sex = userInfo.substring(userInfo.indexOf(<span class="string">"sex\"</span>:<span class="string">" )+5,userInfo.indexOf("</span>,\<span class="string">"language\"</span>:\<span class="string">""</span> ));</span><br><span class="line">        headimgurl = userInfo.substring(userInfo.indexOf(<span class="string">"\"</span>headimgurl\<span class="string">":\"</span><span class="string">" )+14,userInfo.indexOf("</span>\<span class="string">",\"</span>privilege\<span class="string">""</span> ));</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">" token = "</span> + <span class="keyword">token</span>);</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">"access_token = "</span> + access_token );</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">"openID = "</span>+ openId);</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">"userInfo = "</span> + userInfo);</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">"nickname = "</span> + nickname);</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">"sex = "</span> + sex);</span><br><span class="line">        System. <span class="keyword">out</span>.println( <span class="string">"imgurl = "</span> + headimgurl);</span><br><span class="line">        <span class="keyword">if</span>(code == null  || <span class="string">""</span>.equals(code) || <span class="keyword">token</span> == null || <span class="string">""</span>.equals(<span class="keyword">token</span> ) || userInfo == null || <span class="string">""</span>.equals(userInfo))&#123;</span><br><span class="line">              <span class="comment">//登录失败,用户重新登录,从新拉取用户信息</span></span><br><span class="line">             String url = <span class="string">"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfb42d3d1c8d4c11b&amp;redirect_uri=http://192.168.246.172/business/vote/getCode.do&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=STATE#wechat_redirect"</span> ;</span><br><span class="line">             response.sendRedirect(url);</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">             <span class="comment">//登录成功后要跳到的页面</span></span><br><span class="line">             response.sendRedirect( <span class="string">"http://192.168.246.172/business/index.html"</span> );</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果图如下：<br><img src="/img/img_weixin/weixin_img5.png"></p>
+<p>注：<br>1.此为网页授权获取用户基本信息，必须为服务号，订阅号是没有权限通过网页授权来获取用户基本信息的<br>2.必须是80端口<br>3.用户授权获取code连接必须在微信客户端打开<br>4.开发者中心的服务器配置可以不用启用，最后我还是成功的获取到了用户的信息<br><img src="/img/img_weixin/weixin_img6.png"></p>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/微信/">微信</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wangjingling.com/2015/02/11/weixinOAuth2-0/" data-title="微信网页登录授权获取用户信息 | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/11/01/hexo/" title="记使用Hexo快速搭建一个博客,并部署到github">
+  <strong>上一篇：</strong><br/>
+  <span>
+  记使用Hexo快速搭建一个博客,并部署到github</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/02/11/weixinOAuth2-0/" data-title="微信网页登录授权获取用户信息" data-url="http://wangjingling.com/2015/02/11/weixinOAuth2-0/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="mailto:wjl@wangjingling.com" target="_blank" title="友链互挂">友链互挂</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:wjl@wangjingling.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> Copyright © 2015 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
