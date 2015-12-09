@@ -1,0 +1,466 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>SpringMVC常用基本注解使用 | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="SringMVC中为使注解能起到作用,需要在spring-context配置文件中增加如下定义：&amp;lt;context:component-scan base-package=&amp;quot;com.admol.springmvc&amp;quot;/&amp;gt;,即只有在这个包下的才能成功使用注解。
+@Controller@Controller表示控制器的定义,Spring的Controller是Singlet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC常用基本注解使用">
+<meta property="og:url" content="http://wangjingling.com/2015/01/03/SringMVC-Annotation/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="SringMVC中为使注解能起到作用,需要在spring-context配置文件中增加如下定义：&amp;lt;context:component-scan base-package=&amp;quot;com.admol.springmvc&amp;quot;/&amp;gt;,即只有在这个包下的才能成功使用注解。
+@Controller@Controller表示控制器的定义,Spring的Controller是Singlet">
+<meta property="og:updated_time" content="2015-12-09T09:55:11.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC常用基本注解使用">
+<meta name="twitter:description" content="SringMVC中为使注解能起到作用,需要在spring-context配置文件中增加如下定义：&amp;lt;context:component-scan base-package=&amp;quot;com.admol.springmvc&amp;quot;/&amp;gt;,即只有在这个包下的才能成功使用注解。
+@Controller@Controller表示控制器的定义,Spring的Controller是Singlet">
+
+    
+    
+    <link rel="icon" href="/img/Monkey.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/Monkey.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto">学而不思则罔,思而不学则殆</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+						<li><a href="/测试页面">测试</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:wangjingling.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/03/SringMVC-Annotation/" title="SpringMVC常用基本注解使用" itemprop="url">SpringMVC常用基本注解使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-03T09:16:37.000Z" itemprop="datePublished"> 发表于 2015-01-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#@Controller"><span class="toc-number">1.</span> <span class="toc-text">@Controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@Service"><span class="toc-number">2.</span> <span class="toc-text">@Service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@Repository"><span class="toc-number">3.</span> <span class="toc-text">@Repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@Component"><span class="toc-number">4.</span> <span class="toc-text">@Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@RequestMapping"><span class="toc-number">5.</span> <span class="toc-text">@RequestMapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@RequestParam"><span class="toc-number">6.</span> <span class="toc-text">@RequestParam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ModelMap"><span class="toc-number">7.</span> <span class="toc-text">ModelMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@SessionAttributes"><span class="toc-number">8.</span> <span class="toc-text">@SessionAttributes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@ModelAttribute"><span class="toc-number">9.</span> <span class="toc-text">@ModelAttribute</span></a></li></ol>
+		
+		</div>
+		
+		<p>SringMVC中为使注解能起到作用,需要在spring-context配置文件中增加如下定义：<br><code>&lt;context:component-scan base-package=&quot;com.admol.springmvc&quot;/&gt;</code>,即只有在这个包下的才能成功使用注解。</p>
+<h3 id="@Controller">@Controller</h3><p>@Controller表示控制器的定义,Spring的Controller是Singleton的。在spring 3.0中，通过@controller注解即可将class定义为一个controller类。</p>
+<h3 id="@Service">@Service</h3><p>@Service表示业务逻辑层的定义,一般也就是我们写的xxxxService或者xxxxxManager</p>
+<h3 id="@Repository">@Repository</h3><p>@Repository一般表示持久层，也就是我们一般写的xxxxxDAO</p>
+<h3 id="@Component">@Component</h3><p>泛指组件，当我们在不能确实应该使用上面三个注解中的哪一个时，我们可以使用这个注解,也可以起到上面三个注解相同的作用</p>
+<p>上面几个注解一般都作用与类上,getBean的默认名称都是类名,首字母小写,如果想要自定义,可以使用@Controller(“beanName”)的方式进行自定义</p>
+<h3 id="@RequestMapping">@RequestMapping</h3><p>@RequestMapping表示与Controller的关联关系,它可以标注在类上,也可以标注在方法上,以便更加细化请求路径.作用在类上时,表示所有请求都会被映射都’/xxxxx’路径下,方法使用该注解后,它就能处理特定的 URL 请求。@RequestMapping中常用的有一个method属性,使用后,它只会处理特定的http请求,如:@RequestMapping(value=”/xxxxx.htm”,method=RequestMethod.POST),它只会处理POST方式提交的请求.</p>
+<h3 id="@RequestParam">@RequestParam</h3><p>一般情况下,我们也可以不使用这个注解也能达到参数绑定的目的,只要保持URL中传递的参数和方法入参参数名称一致就可以匹配绑定.当我们URL中传递参数和方法入参参数不一致时,我们就可以使用这个注解@RequestParam,如:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Controller</span></span><br><span class="line">public class LoginController&#123;</span><br><span class="line">	<span class="variable">@RequestMapping</span>(<span class="string">"/login.htm"</span>)</span><br><span class="line">	public String <span class="function">login</span>(<span class="variable">@RequestParam</span>(<span class="string">"userName"</span>)String loginName,String password)&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当请求URL:<code>http://localhost/login.htm?userName=admol&amp;password=xxxxx</code>时,URL中的userName参数就会和方法的loginName参数进行绑定.</p>
+<h3 id="ModelMap">ModelMap</h3><p>ModelMap作为通用的模型数据承载对象，作为传递数据供视图所用,一般我们可以声明在方法的入参里面,spring 会将本次请求模型对象引用通过该入参传递进来，这样就可以在请求处理方法内部访问模型对象了.如:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span></span>&#123;</span><br><span class="line">	<span class="annotation">@RequestMapping</span>(<span class="string">"/login.htm"</span>)</span><br><span class="line">	public <span class="built_in">String</span> login(<span class="built_in">String</span> loginName,<span class="built_in">String</span> password,ModelMap modelMap)&#123;</span><br><span class="line">		<span class="comment">//loginName将会被存放到request中</span></span><br><span class="line">		model.addAttribute(<span class="string">"loginName"</span>,loginName); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在页面上,我们可以通过request.getAttribute(“loginName”)或其他方法来获取到loginName,modelMap 中属性的作用域为 request 级别,当请求结束后，ModelMap 中的属性将销毁。</p>
+<h3 id="@SessionAttributes">@SessionAttributes</h3><p>将ModelMap中指定的属性放到session中,如:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span></span>&#123;</span><br><span class="line">	<span class="annotation">@RequestMapping</span>(<span class="string">"/login.htm"</span>)</span><br><span class="line">	<span class="annotation">@SessionAttributes</span>(<span class="string">"loginName"</span>)<span class="comment">//将ModelMap中属性名为loginName的属性放到Session中</span></span><br><span class="line">	public <span class="built_in">String</span> login(<span class="built_in">String</span> loginName,<span class="built_in">String</span> password,ModelMap modelMap)&#123;</span><br><span class="line">		<span class="comment">//loginName将会被存放到request中</span></span><br><span class="line">		model.addAttribute(<span class="string">"loginName"</span>,loginName); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以后我们在其他地方就可以通过session.getAttribute(“loginName”) 来获取 loginName了.当需要将多个参数放入到session中时,我们没必要写多个@SessionAttributes,只需要通过<code>@SessionAttributes({&quot;arg0&quot;,&quot;arg1&quot;})</code>的方式,就可以将多个参数放入到session中去了.</p>
+<h3 id="@ModelAttribute">@ModelAttribute</h3><p>将ModelMap中的属性绑定到方法的入参中.如:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span></span>&#123;</span><br><span class="line">	<span class="annotation">@RequestMapping</span>(<span class="string">"/login.htm"</span>)</span><br><span class="line">	<span class="annotation">@SessionAttributes</span>(<span class="string">"userName"</span>)<span class="comment">//将ModelMap中属性名为userName的属性放到Session中</span></span><br><span class="line">	public <span class="built_in">String</span> login(<span class="built_in">String</span> loginName,<span class="built_in">String</span> password,ModelMap modelMap)&#123;</span><br><span class="line">		<span class="comment">//loginName将会被存放到request中</span></span><br><span class="line">		model.addAttribute(<span class="string">"userName"</span>,loginName); </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="annotation">@RequestMapping</span>(<span class="string">"/loginOut.htm"</span>)</span><br><span class="line">	public <span class="built_in">String</span> login(<span class="annotation">@ModelAttribute</span>(<span class="string">"userName"</span>)<span class="built_in">String</span> loginName,ModelMap modelMap)&#123;</span><br><span class="line">		System.out.<span class="built_in">print</span>(loginName+<span class="string">"退出了登录"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一次在访问<code>http://localhost/login.htm?loginName=admol&amp;password=xxxxx</code>时,会将loginName放入到session中,然后再次访问<code>http://localhost/loginOut.htm</code>时,同样会将userName绑定到参数loginName属性上,最后输出<code>admol退出了登录</code>.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/SpringMVC/">SpringMVC</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wangjingling.com/2015/01/03/SringMVC-Annotation/" data-title="SpringMVC常用基本注解使用 | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/02/11/weixinOAuth2-0/" title="微信网页登录授权获取用户信息">
+  <strong>上一篇：</strong><br/>
+  <span>
+  微信网页登录授权获取用户信息</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/01/03/SringMVC-Annotation/" data-title="SpringMVC常用基本注解使用" data-url="http://wangjingling.com/2015/01/03/SringMVC-Annotation/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#@Controller"><span class="toc-number">1.</span> <span class="toc-text">@Controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@Service"><span class="toc-number">2.</span> <span class="toc-text">@Service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@Repository"><span class="toc-number">3.</span> <span class="toc-text">@Repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@Component"><span class="toc-number">4.</span> <span class="toc-text">@Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@RequestMapping"><span class="toc-number">5.</span> <span class="toc-text">@RequestMapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@RequestParam"><span class="toc-number">6.</span> <span class="toc-text">@RequestParam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ModelMap"><span class="toc-number">7.</span> <span class="toc-text">ModelMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@SessionAttributes"><span class="toc-number">8.</span> <span class="toc-text">@SessionAttributes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#@ModelAttribute"><span class="toc-number">9.</span> <span class="toc-text">@ModelAttribute</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/SpringMVC/" title="SpringMVC">SpringMVC<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="mailto:wjl@wangjingling.com" target="_blank" title="友链互挂">友链互挂</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://cqchen.cn/" target="_blank" title="晨缘陈往">晨缘陈往</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:wjl@wangjingling.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> Copyright © 2015 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
