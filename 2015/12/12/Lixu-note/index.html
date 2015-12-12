@@ -1,0 +1,467 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>工作中常用Lixu命令学习笔记 | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="对于Linux,我是菜鸟,也是在工作中了才开始慢慢接触,用Linux的人都我都会觉得屌屌的,现在把工作中常用的一些Linux命令记录一下,供以后学习和参考.
+cd这可能是我觉得Linux最简单的一个命令,因为windows操作系统也同样适用这个命令.它主要用于目录切换,后面可以跟绝对路径,也可以跟相对路径,如:123cd d:/wjl_hexo  ##到D盘的wjl_hexo目录cd ..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工作中常用Lixu命令学习笔记">
+<meta property="og:url" content="http://wangjingling.com/2015/12/12/Lixu-note/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="对于Linux,我是菜鸟,也是在工作中了才开始慢慢接触,用Linux的人都我都会觉得屌屌的,现在把工作中常用的一些Linux命令记录一下,供以后学习和参考.
+cd这可能是我觉得Linux最简单的一个命令,因为windows操作系统也同样适用这个命令.它主要用于目录切换,后面可以跟绝对路径,也可以跟相对路径,如:123cd d:/wjl_hexo  ##到D盘的wjl_hexo目录cd ..">
+<meta property="og:updated_time" content="2015-12-12T08:56:49.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工作中常用Lixu命令学习笔记">
+<meta name="twitter:description" content="对于Linux,我是菜鸟,也是在工作中了才开始慢慢接触,用Linux的人都我都会觉得屌屌的,现在把工作中常用的一些Linux命令记录一下,供以后学习和参考.
+cd这可能是我觉得Linux最简单的一个命令,因为windows操作系统也同样适用这个命令.它主要用于目录切换,后面可以跟绝对路径,也可以跟相对路径,如:123cd d:/wjl_hexo  ##到D盘的wjl_hexo目录cd ..">
+
+    
+    
+    <link rel="icon" href="/img/Monkey.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/Monkey.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto">学而不思则罔,思而不学则殆</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+						<li><a href="/测试页面">测试</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:wangjingling.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/12/Lixu-note/" title="工作中常用Lixu命令学习笔记" itemprop="url">工作中常用Lixu命令学习笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-12T03:16:26.000Z" itemprop="datePublished"> 发表于 2015-12-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#cd"><span class="toc-number">1.</span> <span class="toc-text">cd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ls"><span class="toc-number">2.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep"><span class="toc-number">3.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tail"><span class="toc-number">4.</span> <span class="toc-text">tail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#less"><span class="toc-number">5.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rm"><span class="toc-number">6.</span> <span class="toc-text">rm</span></a></li></ol>
+		
+		</div>
+		
+		<p>对于Linux,我是菜鸟,也是在工作中了才开始慢慢接触,用Linux的人都我都会觉得屌屌的,现在把工作中常用的一些Linux命令记录一下,供以后学习和参考.</p>
+<h3 id="cd">cd</h3><p>这可能是我觉得Linux最简单的一个命令,因为windows操作系统也同样适用这个命令.它主要用于目录切换,后面可以跟绝对路径,也可以跟相对路径,如:<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="keyword">d</span>:/wjl_hexo  ##到<span class="keyword">D</span>盘的wjl_hexo目录</span><br><span class="line"><span class="keyword">cd</span> .. 			 ##到当前目录的上一层目录,假如当前目录是<span class="keyword">D</span>:/wjl_hexo,执行后当前所在目录就是<span class="keyword">D</span>盘根目录</span><br><span class="line"><span class="keyword">cd</span> ~ 		 ##至根目录</span><br></pre></td></tr></table></figure></p>
+<h3 id="ls">ls</h3><p>这个命令主要用于显示目录下的文件和文件夹信息,后面可以不带参数,不带参数的话,只会显示最基本的信息.可以带的参数比较多,如:<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">a   <span class="comment">##全部的档案,连同隐藏档(开头为.的档案)一起列出来(常用)</span></span><br><span class="line"></span>-<span class="ruby">l    <span class="comment">##以长数据串的形式列出当前目录下的数据文件和目录  </span></span><br><span class="line"></span>-<span class="ruby">lR <span class="comment">##以长数据串的形式列出当前目录下的所有文件(想一下了再用) </span></span><br><span class="line"></span>-<span class="ruby">t   <span class="comment">##按时间排序</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="grep">grep</h3><p>该命令主要用于文本内容的搜索,找出文本中我们需要的信息,格式为:<code>grep &#39;keyword&#39; filename</code>,在查看日志时用的比较多,后面可以跟参数,如:</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">'创建订单'</span>  filename.<span class="built_in">log</span> -c  <span class="preprocessor">##统计关键字<span class="string">'创建订单'</span>在filename.log中出现的次数 </span></span><br><span class="line">-i <span class="preprocessor">## 忽略关键字大小写的区别进行搜索</span></span><br><span class="line">-v <span class="preprocessor">## 反向选择,即显示没有出现关键字的信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="tail">tail</h3><p>常用于日志查看,用于显示指定文件末尾内容,格式:<code>tail [参数] filename</code>,常用参数:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-f <span class="preprocessor">##动态显示文本末尾内容,实时查看当前日志输出.也可以直接输入 tailf filename</span></span><br><span class="line">-n <span class="preprocessor">##显示n行信息,如: tail -n <span class="number">5</span> filename ,显示文件最后<span class="number">5</span>行内容 tail -n +<span class="number">5</span> filename,从第<span class="number">5</span>行开始显示文件</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="less">less</h3><p>强大的文本查看命令,不会修改文本的内容.可以使用键盘的<code>↑</code> <code>↓</code>来进行查看.格式:<code>less [参数] filename</code>,如:<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">b  <span class="comment">##&lt;缓冲区大小&gt; 设置缓冲区的大小</span></span><br><span class="line"></span>-<span class="ruby">e  <span class="comment">##当文件显示结束后，自动离开</span></span><br><span class="line"></span>-<span class="ruby"><span class="constant">N</span>  <span class="comment">##显示每行的行号</span></span></span><br></pre></td></tr></table></figure></p>
+<p>输入<code>/keyword</code> 或<code>?keyword</code>,可检索出<code>keyword</code>信息.<br>辅助操作:</p>
+<p><code>J</code> 向前移动一行<br><code>K</code>  向后移动一行<br><code>g</code>  移动到第一行<br><code>G</code>  移动到最后一行<br><code>q</code>  退出less命令<br><code>ctrl + F</code> 向前移动一屏<br><code>ctrl + B</code> 向后移动一屏<br><code>ctrl + D</code> 向前移动半屏<br><code>ctrl + U</code> 向后移动半屏</p>
+<h3 id="rm">rm</h3><p>用于删除一个或多个文件和目录的命令,格式:<code>rm [参数] file/folder</code>,如:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm <span class="built_in">file</span> <span class="comment">## 系统会提示是否删除文件</span></span><br><span class="line">rm -f <span class="built_in">file</span> <span class="comment">## 强行删除文件,系统不提示</span></span><br><span class="line">rm -rf <span class="built_in">folder</span> <span class="comment">##删除文件夹及其目录下的所有内容,不提示</span></span><br><span class="line">rm -i *.<span class="built_in">log</span> <span class="comment">##删除所有.log文件,删除前逐一询问确认 </span></span><br><span class="line">rm -r <span class="built_in">folder</span> <span class="comment">##删除子目录及子目录中所有</span></span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wangjingling.com/2015/12/12/Lixu-note/" data-title="工作中常用Lixu命令学习笔记 | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/12/10/dubbo-doc/"  title="dubbo的学习使用">
+ <strong>下一篇：</strong><br/> 
+ <span>dubbo的学习使用
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/12/Lixu-note/" data-title="工作中常用Lixu命令学习笔记" data-url="http://wangjingling.com/2015/12/12/Lixu-note/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#cd"><span class="toc-number">1.</span> <span class="toc-text">cd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ls"><span class="toc-number">2.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep"><span class="toc-number">3.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tail"><span class="toc-number">4.</span> <span class="toc-text">tail</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#less"><span class="toc-number">5.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rm"><span class="toc-number">6.</span> <span class="toc-text">rm</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/SpringMVC/" title="SpringMVC">SpringMVC<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="mailto:wjl@wangjingling.com" target="_blank" title="友链互挂">友链互挂</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://cqchen.cn/" target="_blank" title="晨缘陈往">晨缘陈往</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:wjl@wangjingling.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> Copyright © 2015 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
