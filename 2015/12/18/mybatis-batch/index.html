@@ -4,48 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>dubbo的学习使用 | admol</title>
+    <title>mybatis批量操作-xml方式 | admol</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="adoml">
     
 
     
-    <meta name="description" content="dubbo用户指南
-dubbo是什么Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.
-架构 
-节点说明:
-
-Provider: 暴露服务的服务提供方。
-Consumer: 调用远程服务的服务消费方。
-Registry: 服务注册与发现的注册中心。
-Monitor: 统计服务的调用次调和调用时间的监控中">
+    <meta name="description" content="在实际项目中,我们一般都会用到批量insert、delete、update等操作,由于使用频率还是蛮高的,这里就做个简单的记录,供以后学习和参考.
+批量insert在数据库中,批量插入可以是多条insert into tableName values(?,?,?...);或者一条insert into tableName values (?,?,?...),(?,?,?...),(?,?,?...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dubbo的学习使用">
-<meta property="og:url" content="http://wangjingling.com/2015/12/14/dubbo-doc/index.html">
+<meta property="og:title" content="mybatis批量操作-xml方式">
+<meta property="og:url" content="http://wangjingling.com/2015/12/18/mybatis-batch/index.html">
 <meta property="og:site_name" content="admol">
-<meta property="og:description" content="dubbo用户指南
-dubbo是什么Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.
-架构 
-节点说明:
-
-Provider: 暴露服务的服务提供方。
-Consumer: 调用远程服务的服务消费方。
-Registry: 服务注册与发现的注册中心。
-Monitor: 统计服务的调用次调和调用时间的监控中">
-<meta property="og:image" content="http://wangjingling.com/img/dubbo/dubbo-001.jpg">
-<meta property="og:updated_time" content="2015-12-14T08:05:15.745Z">
+<meta property="og:description" content="在实际项目中,我们一般都会用到批量insert、delete、update等操作,由于使用频率还是蛮高的,这里就做个简单的记录,供以后学习和参考.
+批量insert在数据库中,批量插入可以是多条insert into tableName values(?,?,?...);或者一条insert into tableName values (?,?,?...),(?,?,?...),(?,?,?...">
+<meta property="og:updated_time" content="2015-12-18T14:04:11.994Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dubbo的学习使用">
-<meta name="twitter:description" content="dubbo用户指南
-dubbo是什么Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.
-架构 
-节点说明:
-
-Provider: 暴露服务的服务提供方。
-Consumer: 调用远程服务的服务消费方。
-Registry: 服务注册与发现的注册中心。
-Monitor: 统计服务的调用次调和调用时间的监控中">
+<meta name="twitter:title" content="mybatis批量操作-xml方式">
+<meta name="twitter:description" content="在实际项目中,我们一般都会用到批量insert、delete、update等操作,由于使用频率还是蛮高的,这里就做个简单的记录,供以后学习和参考.
+批量insert在数据库中,批量插入可以是多条insert into tableName values(?,?,?...);或者一条insert into tableName values (?,?,?...),(?,?,?...),(?,?,?...">
 
     
     
@@ -99,14 +77,14 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/14/dubbo-doc/" title="dubbo的学习使用" itemprop="url">dubbo的学习使用</a>
+      <a href="/2015/12/18/mybatis-batch/" title="mybatis批量操作-xml方式" itemprop="url">mybatis批量操作-xml方式</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-14T08:05:15.845Z" itemprop="datePublished"> 发表于 2015-12-14</time>
+    <time datetime="2015-12-18T13:13:58.000Z" itemprop="datePublished"> 发表于 2015-12-18</time>
     
   </p>
 </header>
@@ -115,31 +93,44 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#dubbo是什么"><span class="toc-number">1.</span> <span class="toc-text">dubbo是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#架构"><span class="toc-number">2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#批量insert"><span class="toc-number">1.</span> <span class="toc-text">批量insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量update"><span class="toc-number">2.</span> <span class="toc-text">批量update</span></a></li></ol>
 		
 		</div>
 		
-		<p><a href="http://dubbo.io/User+Guide-zh.htm" target="_blank" rel="external">dubbo用户指南</a></p>
-<h3 id="dubbo是什么">dubbo是什么</h3><p>Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.</p>
-<h3 id="架构">架构</h3><p> <img src="/img/dubbo/dubbo-001.jpg"></p>
-<p>节点说明:</p>
-<ul>
-<li>Provider: 暴露服务的服务提供方。</li>
-<li>Consumer: 调用远程服务的服务消费方。</li>
-<li>Registry: 服务注册与发现的注册中心。</li>
-<li>Monitor: 统计服务的调用次调和调用时间的监控中心。</li>
-<li>Container: 服务运行容器。</li>
-</ul>
-<p>关系说明:</p>
-<ul>
-<li>0.服务容器负责启动，加载，运行服务提供者。</li>
-<li>1.服务提供者在启动时，向注册中心注册自己提供的服务。</li>
-<li>2.服务消费者在启动时，向注册中心订阅自己所需的服务。</li>
-<li>3.注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。</li>
-<li>4.服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。</li>
-<li>5.服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。</li>
-</ul>
-<h3 id="使用方法">使用方法</h3>  
+		<p>在实际项目中,我们一般都会用到批量<code>insert、delete、update</code>等操作,由于使用频率还是蛮高的,这里就做个简单的记录,供以后学习和参考.</p>
+<h3 id="批量insert">批量insert</h3><p>在数据库中,批量插入可以是多条<code>insert into tableName values(?,?,?...);</code><br>或者一条<code>insert into tableName values (?,?,?...),(?,?,?...),(?,?,?...)....</code><br>那么我们在使用<strong>mybatis</strong>时,xml就可以如下写批量操作:<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id =<span class="string">"INSERT-CODE-BATCH"</span> parameterType=<span class="string">"java.util.List"</span> &gt;</span><br><span class="line">      <span class="function">insert <span class="keyword">into</span> <span class="title">redeem_code</span></span><br><span class="line">      (<span class="params">bach_id, code, type, facevalue,create_user,create_time</span>)</span><br><span class="line">      values</span><br><span class="line">       &lt;<span class="keyword">foreach</span> collection </span>=<span class="string">"list"</span> item=<span class="string">"reddemCode"</span> index= <span class="string">"index"</span> separator =<span class="string">","</span>&gt;</span><br><span class="line">           (</span><br><span class="line">           <span class="preprocessor">#&#123;reddemCode.batchId&#125;, #&#123;reddemCode.code&#125;,</span></span><br><span class="line">           <span class="preprocessor">#&#123;reddemCode.type&#125;,</span></span><br><span class="line">           <span class="preprocessor">#&#123;reddemCode.facevalue&#125;,</span></span><br><span class="line">           <span class="preprocessor">#&#123;reddemCode.createUser&#125;, #&#123;reddemCode.createTime&#125;</span></span><br><span class="line">           )</span><br><span class="line">       &lt;/<span class="keyword">foreach</span> &gt;</span><br><span class="line">&lt;/insert &gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>标签说明:</strong></p>
+<ol>
+<li>foreach元素的属性主要有 item，index，collection，open，separator，close。</li>
+<li>item表示集合中每一个元素进行迭代时的别名</li>
+<li>index指定一个名字，用于表示在迭代过程中，每次迭代到的位置</li>
+<li>open表示该语句以什么开始</li>
+<li>separator表示在每次进行迭代之间以什么符号作为分隔符</li>
+<li>close表示以什么结束</li>
+<li><strong>collection</strong>属性为必填属性! 可以是List,Array,Map.</li>
+</ol>
+<p><strong>注意</strong><br><em>这里的<code>foreach</code>标签没有包含<code>insert into tableName</code>,所以最后实际执行的是一条SQL语句:<br>insert into redeem_code (batch_id, code, type, facevalue,create_user,create_time)<br> values<br> (?,?,?,?,?,? ),(?,?,?,?,?,? ),(?,?,?,?,?,? ),(?,?,?,?,?,? )
+</em></p>
+<p><a href="http://legend2011.blog.51cto.com/3018495/d-5" target="_blank" rel="external">推荐mybatis博客专栏</a></p>
+<h3 id="批量update">批量update</h3><p>mybatis的批量重点就是怎么去将sql拼接成可以直接在数据库执行的sql,这里再记录下以<strong>ibatis</strong>的批量操作,只要会了一个,其他也都不是问题了.<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">update</span> id=<span class="string">"WHOLESALE-UPDATE-REBATE-CONFIG-BY-PRODUCTCODE"</span> &gt;</span><br><span class="line">	<span class="keyword">UPDATE</span> </span><br><span class="line">		rebate_config</span><br><span class="line">	<span class="keyword">SET</span></span><br><span class="line">		rebate_type = 'BY_RATE',rebate_config_value = #rebateConfigValue#</span><br><span class="line">	WHERE</span><br><span class="line">		&lt;iterate  property=<span class="string">"list"</span> conjunction=<span class="string">"or"</span> <span class="keyword">open</span>=<span class="string">"("</span> <span class="keyword">close</span>=<span class="string">")"</span>&gt;</span><br><span class="line">		  product_code =#<span class="keyword">list</span>[]#</span><br><span class="line">		&lt;/iterate&gt;</span><br><span class="line">&lt;/<span class="keyword">update</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>标签说明:</strong></p>
+<ol>
+<li>prepend 可被覆盖的 SQL 语句组成部分，添加在语句的前面（可选）</li>
+<li>property 类型为 java.util.List 的用于遍历的元素（必选） </li>
+<li>open  整个遍历内容体开始的字符串，用于定义括号（可选）</li>
+<li>close 整个遍历内容体结束的字符串，用于定义括号（可选）</li>
+<li>conjunction  每次遍历内容之间的字符串，用于定义 AND 或 OR（可选）</li>
+</ol>
+<p><strong>注意</strong></p>
+<ol>
+<li><p>我这里传递过来的参数是一个Map<string,object></string,object></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">Object</span>&gt; conditions = <span class="keyword">new</span> HashMap&lt;<span class="built_in">String</span>, <span class="built_in">Object</span>&gt;();</span><br><span class="line">conditions.put(<span class="string">"rebateConfigValue"</span>, rebateValue); <span class="comment">//rebateValue是一个固定的值</span></span><br><span class="line">conditions.put(<span class="string">"list"</span>, productCodeList);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用<iterate>时，在List元素名后面包括方括号[]非常重要，方括号[]将对象标记为List，以防解析器简单地将List输出成String</iterate></strong></p>
+</li>
+</ol>
+<p><a href="http://ibatis.apache.org/docs/dotnet/datamapper/ch03s09.html#id386679" target="_blank" rel="external">ibatis官方文档说明</a><br><a href="http://www.yiibai.com/ibatis/ibatis_overview.html" target="_blank" rel="external">ibatis学习网站</a></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -147,7 +138,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/dubbo/">dubbo</a>
+  <span></span> <a href="/tags/mybatis/">mybatis</a>
   </div>
 
 </div>
@@ -156,7 +147,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wangjingling.com/2015/12/14/dubbo-doc/" data-title="dubbo的学习使用 | admol" data-tsina="3027906115" class="share clearfix">
+	  <div data-url="http://wangjingling.com/2015/12/18/mybatis-batch/" data-title="mybatis批量操作-xml方式 | admol" data-tsina="3027906115" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -169,19 +160,11 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/18/mybatis-batch/" title="mybatis批量操作-xml方式">
-  <strong>上一篇：</strong><br/>
-  <span>
-  mybatis批量操作-xml方式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/12/Lixu-note/"  title="工作中常用Lixu命令学习笔记">
+<a href="/2015/12/14/dubbo-doc/"  title="dubbo的学习使用">
  <strong>下一篇：</strong><br/> 
- <span>工作中常用Lixu命令学习笔记
+ <span>dubbo的学习使用
 </span>
 </a>
 </div>
@@ -190,7 +173,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/14/dubbo-doc/" data-title="dubbo的学习使用" data-url="http://wangjingling.com/2015/12/14/dubbo-doc/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/18/mybatis-batch/" data-title="mybatis批量操作-xml方式" data-url="http://wangjingling.com/2015/12/18/mybatis-batch/"></div>
 </section>
 
 
@@ -200,7 +183,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#dubbo是什么"><span class="toc-number">1.</span> <span class="toc-text">dubbo是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#架构"><span class="toc-number">2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#批量insert"><span class="toc-number">1.</span> <span class="toc-text">批量insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量update"><span class="toc-number">2.</span> <span class="toc-text">批量update</span></a></li></ol>
  
   </div>
 
