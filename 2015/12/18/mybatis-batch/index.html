@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="admol">
 <meta property="og:description" content="在实际项目中,我们一般都会用到批量insert、delete、update等操作,由于使用频率还是蛮高的,这里就做个简单的记录,供以后学习和参考.
 批量insert在数据库中,批量插入可以是多条insert into tableName values(?,?,?...);或者一条insert into tableName values (?,?,?...),(?,?,?...),(?,?,?...">
-<meta property="og:updated_time" content="2015-12-18T14:04:11.994Z">
+<meta property="og:updated_time" content="2015-12-23T07:41:50.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis批量操作-xml方式">
 <meta name="twitter:description" content="在实际项目中,我们一般都会用到批量insert、delete、update等操作,由于使用频率还是蛮高的,这里就做个简单的记录,供以后学习和参考.
@@ -111,7 +111,8 @@
 <p><strong>注意</strong><br><em>这里的<code>foreach</code>标签没有包含<code>insert into tableName</code>,所以最后实际执行的是一条SQL语句:<br>insert into redeem_code (batch_id, code, type, facevalue,create_user,create_time)<br> values<br> (?,?,?,?,?,? ),(?,?,?,?,?,? ),(?,?,?,?,?,? ),(?,?,?,?,?,? )
 </em></p>
 <p><a href="http://legend2011.blog.51cto.com/3018495/d-5" target="_blank" rel="external">推荐mybatis博客专栏</a></p>
-<h3 id="批量update">批量update</h3><p>mybatis的批量重点就是怎么去将sql拼接成可以直接在数据库执行的sql,这里再记录下以<strong>ibatis</strong>的批量操作,只要会了一个,其他也都不是问题了.<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">update</span> id=<span class="string">"WHOLESALE-UPDATE-REBATE-CONFIG-BY-PRODUCTCODE"</span> &gt;</span><br><span class="line">	<span class="keyword">UPDATE</span> </span><br><span class="line">		rebate_config</span><br><span class="line">	<span class="keyword">SET</span></span><br><span class="line">		rebate_type = 'BY_RATE',rebate_config_value = #rebateConfigValue#</span><br><span class="line">	WHERE</span><br><span class="line">		&lt;iterate  property=<span class="string">"list"</span> conjunction=<span class="string">"or"</span> <span class="keyword">open</span>=<span class="string">"("</span> <span class="keyword">close</span>=<span class="string">")"</span>&gt;</span><br><span class="line">		  product_code =#<span class="keyword">list</span>[]#</span><br><span class="line">		&lt;/iterate&gt;</span><br><span class="line">&lt;/<span class="keyword">update</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="批量update">批量update</h3><p>mybatis的批量重点就是怎么去将sql拼接成可以直接在数据库执行的sql,这里再记录下以<strong>ibatis</strong>的批量操作,只要会了一个,其他也都不是问题了.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">update</span> id=<span class="string">"WHOLESALE-UPDATE-REBATE-CONFIG-BY-PRODUCTCODE"</span> &gt;</span><br><span class="line">	<span class="keyword">UPDATE</span> </span><br><span class="line">		rebate_config</span><br><span class="line">	<span class="keyword">SET</span></span><br><span class="line">		rebate_type = 'BY_RATE',rebate_config_value = #rebateConfigValue#</span><br><span class="line">	WHERE</span><br><span class="line">		&lt;iterate  property=<span class="string">"list"</span> conjunction=<span class="string">"or"</span> <span class="keyword">open</span>=<span class="string">"("</span> <span class="keyword">close</span>=<span class="string">")"</span>&gt;</span><br><span class="line">		  product_code =#<span class="keyword">list</span>[]#</span><br><span class="line">		&lt;/iterate&gt;</span><br><span class="line">&lt;/<span class="keyword">update</span>&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>标签说明:</strong></p>
 <ol>
 <li>prepend 可被覆盖的 SQL 语句组成部分，添加在语句的前面（可选）</li>
@@ -159,6 +160,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/12/23/svn-note/" title="工作中版本控制SVN的使用笔记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  工作中版本控制SVN的使用笔记</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/12/14/dubbo-doc/"  title="dubbo的学习使用">
@@ -221,6 +230,10 @@
 				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
 			
 		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
 		</ul>
 </div>
 
@@ -244,7 +257,7 @@
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 

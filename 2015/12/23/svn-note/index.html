@@ -4,48 +4,34 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>dubbo的学习使用 | admol</title>
+    <title>工作中版本控制SVN的使用笔记 | admol</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="adoml">
     
 
     
-    <meta name="description" content="dubbo用户指南
-dubbo是什么Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.
-架构 
-节点说明:
-
-Provider: 暴露服务的服务提供方。
-Consumer: 调用远程服务的服务消费方。
-Registry: 服务注册与发现的注册中心。
-Monitor: 统计服务的调用次调和调用时间的监控中">
+    <meta name="description" content="SVN是一个版本控制系统,在实际的开发工作当中用到的非常多,本文旨在记录一下在实际开发工作过程中使用到的常用SVN功能,供以后查阅学习.
+安装客户端和服务端下载地址,打开网址,根据自己的操作系统下载对应的版本,window用户服务端一般安装的是VisualSVN,客户端安装TortoiseSVN,在实际工作中,我们一般只需要安装TortoiseSVN,对应的IDE中安装好svn插件就可以了。
+SV">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dubbo的学习使用">
-<meta property="og:url" content="http://wangjingling.com/2015/12/14/dubbo-doc/index.html">
+<meta property="og:title" content="工作中版本控制SVN的使用笔记">
+<meta property="og:url" content="http://wangjingling.com/2015/12/23/svn-note/index.html">
 <meta property="og:site_name" content="admol">
-<meta property="og:description" content="dubbo用户指南
-dubbo是什么Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.
-架构 
-节点说明:
-
-Provider: 暴露服务的服务提供方。
-Consumer: 调用远程服务的服务消费方。
-Registry: 服务注册与发现的注册中心。
-Monitor: 统计服务的调用次调和调用时间的监控中">
-<meta property="og:image" content="http://wangjingling.com/img/dubbo/dubbo-001.jpg">
-<meta property="og:updated_time" content="2015-12-14T08:05:15.745Z">
+<meta property="og:description" content="SVN是一个版本控制系统,在实际的开发工作当中用到的非常多,本文旨在记录一下在实际开发工作过程中使用到的常用SVN功能,供以后查阅学习.
+安装客户端和服务端下载地址,打开网址,根据自己的操作系统下载对应的版本,window用户服务端一般安装的是VisualSVN,客户端安装TortoiseSVN,在实际工作中,我们一般只需要安装TortoiseSVN,对应的IDE中安装好svn插件就可以了。
+SV">
+<meta property="og:image" content="http://wangjingling.com/img/svn/svn_001.png">
+<meta property="og:image" content="http://wangjingling.com/img/svn/svn_002.png">
+<meta property="og:image" content="http://wangjingling.com/img/svn/svn_003.png">
+<meta property="og:image" content="http://wangjingling.com/img/svn/svn_004.png">
+<meta property="og:image" content="http://wangjingling.com/img/svn/svn_005.png">
+<meta property="og:updated_time" content="2015-12-26T08:32:22.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dubbo的学习使用">
-<meta name="twitter:description" content="dubbo用户指南
-dubbo是什么Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.
-架构 
-节点说明:
-
-Provider: 暴露服务的服务提供方。
-Consumer: 调用远程服务的服务消费方。
-Registry: 服务注册与发现的注册中心。
-Monitor: 统计服务的调用次调和调用时间的监控中">
+<meta name="twitter:title" content="工作中版本控制SVN的使用笔记">
+<meta name="twitter:description" content="SVN是一个版本控制系统,在实际的开发工作当中用到的非常多,本文旨在记录一下在实际开发工作过程中使用到的常用SVN功能,供以后查阅学习.
+安装客户端和服务端下载地址,打开网址,根据自己的操作系统下载对应的版本,window用户服务端一般安装的是VisualSVN,客户端安装TortoiseSVN,在实际工作中,我们一般只需要安装TortoiseSVN,对应的IDE中安装好svn插件就可以了。
+SV">
 
     
     
@@ -98,14 +84,14 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/14/dubbo-doc/" title="dubbo的学习使用" itemprop="url">dubbo的学习使用</a>
+      <a href="/2015/12/23/svn-note/" title="工作中版本控制SVN的使用笔记" itemprop="url">工作中版本控制SVN的使用笔记</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-14T08:05:15.845Z" itemprop="datePublished"> 发表于 2015-12-14</time>
+    <time datetime="2015-12-23T07:43:18.000Z" itemprop="datePublished"> 发表于 2015-12-23</time>
     
   </p>
 </header>
@@ -114,31 +100,18 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#dubbo是什么"><span class="toc-number">1.</span> <span class="toc-text">dubbo是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#架构"><span class="toc-number">2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN_Checkout"><span class="toc-number">2.</span> <span class="toc-text">SVN Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与资源库同步"><span class="toc-number">3.</span> <span class="toc-text">与资源库同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新与提交"><span class="toc-number">4.</span> <span class="toc-text">更新与提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并代码"><span class="toc-number">5.</span> <span class="toc-text">合并代码</span></a></li></ol>
 		
 		</div>
 		
-		<p><a href="http://dubbo.io/User+Guide-zh.htm" target="_blank" rel="external">dubbo用户指南</a></p>
-<h3 id="dubbo是什么">dubbo是什么</h3><p>Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。说简单点就是一个提供服务,一个接受服务.</p>
-<h3 id="架构">架构</h3><p> <img src="/img/dubbo/dubbo-001.jpg"></p>
-<p>节点说明:</p>
-<ul>
-<li>Provider: 暴露服务的服务提供方。</li>
-<li>Consumer: 调用远程服务的服务消费方。</li>
-<li>Registry: 服务注册与发现的注册中心。</li>
-<li>Monitor: 统计服务的调用次调和调用时间的监控中心。</li>
-<li>Container: 服务运行容器。</li>
-</ul>
-<p>关系说明:</p>
-<ul>
-<li>0.服务容器负责启动，加载，运行服务提供者。</li>
-<li>1.服务提供者在启动时，向注册中心注册自己提供的服务。</li>
-<li>2.服务消费者在启动时，向注册中心订阅自己所需的服务。</li>
-<li>3.注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。</li>
-<li>4.服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。</li>
-<li>5.服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。</li>
-</ul>
-<h3 id="使用方法">使用方法</h3>  
+		<p>SVN是一个版本控制系统,在实际的开发工作当中用到的非常多,本文旨在记录一下在实际开发工作过程中使用到的常用SVN功能,供以后查阅学习.</p>
+<h3 id="安装">安装</h3><p><a href="http://subversion.apache.org/packages.html" target="_blank" rel="external">客户端和服务端下载地址</a>,打开网址,根据自己的操作系统下载对应的版本,window用户服务端一般安装的是<code>VisualSVN</code>,客户端安装<code>TortoiseSVN</code>,在实际工作中,我们一般只需要安装<code>TortoiseSVN</code>,对应的IDE中安装好svn插件就可以了。</p>
+<h3 id="SVN_Checkout">SVN Checkout</h3><p>进入公司的第一天,当然是将我们的开发项目从服务器上Checkout下来了,在checkout下来之前,我们需要先在本地新建几个文件夹,例如在D:盘下面新建一个<code>code</code> 文件夹,<code>code</code>下面分别新建<code>branches</code> 和 <code>trunk</code>文件夹,<code>branches</code>里面以后存放所有的项目分支, <code>trunk</code>里面以后存放项目主干,目录结果大致如下:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">code</span> ┌ branches</span><br><span class="line">	 ├ trunk</span><br></pre></td></tr></table></figure></p>
+<p>假如项目分支名称为<code>project_V1.0.1_2015_01_01</code>,则我们一般是再在<code>d:\code\branches</code>目录下新建一个名为<code>project_V1.0.1_2015_01_01</code>的文件夹,然后将分支checkout到该文件夹目录下.在以后有新的分支时,同样以分支名命名一个新的文件夹,然后check下来。checkout主干时无需在<code>trunk</code>目录下新建文件夹。最后我们会发现我们本地的目录结构是和SVN服务器上目录结构一致。</p>
+<h3 id="与资源库同步">与资源库同步</h3><p>在update和commit操作之前,我们都需要与资源库同步一下,目的是检查一下别人是否在你操作之前已经提交过代码造成了代码冲突,有冲突的文件默认一般会有一个红色的标记,当有冲突时就需要我们手动解决冲突后再执行update或者commit操作,这里记录下以eclipse为例,怎么解决代码冲突.<br>如下图中,左边表示本地的代码,右边表示远程服务器上的代码,同事在我之前提交了4个接口方法,左边<code>public void test();</code>方法是我新加的代码,<br><img src="/img/svn/svn_001.png"><br>这时我在同步代码时就需要先解决冲突,这是只需要点击箭头指向的那个小圈<code>Copy Current change from Right to Left</code>就可以了,右边的代码会被copy到左边去.然后保存,在文件上鼠标右键点击<img src="/img/svn/svn_002.png">,然后就可以更新代码了。当然你也可以先更新下来代码后再解决冲突.不一定需要先解决冲突在更新…</p>
+<h3 id="更新与提交">更新与提交</h3><p>建议一定先同步后在执行更新或者提交操作,这样你好大家也都好.commit时一定写好提交注释.</p>
+<h3 id="合并代码">合并代码</h3><p>分支代码开发完了,我们需要将代码合并到主干上去进行测试,或者两个分支在同时进行不同功能开发时,最后我们需要把一个分支的代码合并到另外一个分支上去.首先我们需要知道我们的目标是什么,合并到分支,合并到主干,到分支,到主干!!!例如我们分支合并到主干:<br>已主干为主,在<img src="/img/svn/svn_003.png">上右键,选择<img src="/img/svn/svn_004.png">,选择<code>Merge a range of revisions</code>,点击<code>next</code>,然后在 <code>URL to merge from</code> 填写svn服务器上分支路径,如:<br><img src="/img/svn/svn_005.png"><br>然后点击<code>Next</code>,再点击<code>Test merge</code>,开始测试合并代码了,这时如果文件有冲突会被标记为红色,注意,这不是正真的合并代码,正式的合并需要直接点击<code>Merge</code>,Merger过程中可能会出现冲突需要我们去解决。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -146,7 +119,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/dubbo/">dubbo</a>
+  <span></span> <a href="/tags/版本控制/">版本控制</a>
   </div>
 
 </div>
@@ -155,7 +128,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://wangjingling.com/2015/12/14/dubbo-doc/" data-title="dubbo的学习使用 | admol" data-tsina="3027906115" class="share clearfix">
+	  <div data-url="http://wangjingling.com/2015/12/23/svn-note/" data-title="工作中版本控制SVN的使用笔记 | admol" data-tsina="3027906115" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -168,19 +141,11 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/18/mybatis-batch/" title="mybatis批量操作-xml方式">
-  <strong>上一篇：</strong><br/>
-  <span>
-  mybatis批量操作-xml方式</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/12/Lixu-note/"  title="工作中常用Lixu命令学习笔记">
+<a href="/2015/12/18/mybatis-batch/"  title="mybatis批量操作-xml方式">
  <strong>下一篇：</strong><br/> 
- <span>工作中常用Lixu命令学习笔记
+ <span>mybatis批量操作-xml方式
 </span>
 </a>
 </div>
@@ -189,7 +154,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/14/dubbo-doc/" data-title="dubbo的学习使用" data-url="http://wangjingling.com/2015/12/14/dubbo-doc/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/23/svn-note/" data-title="工作中版本控制SVN的使用笔记" data-url="http://wangjingling.com/2015/12/23/svn-note/"></div>
 </section>
 
 
@@ -199,7 +164,7 @@ Monitor: 统计服务的调用次调和调用时间的监控中">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#dubbo是什么"><span class="toc-number">1.</span> <span class="toc-text">dubbo是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#架构"><span class="toc-number">2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN_Checkout"><span class="toc-number">2.</span> <span class="toc-text">SVN Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与资源库同步"><span class="toc-number">3.</span> <span class="toc-text">与资源库同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新与提交"><span class="toc-number">4.</span> <span class="toc-text">更新与提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并代码"><span class="toc-number">5.</span> <span class="toc-text">合并代码</span></a></li></ol>
  
   </div>
 
