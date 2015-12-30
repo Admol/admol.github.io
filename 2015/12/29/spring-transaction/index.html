@@ -1,0 +1,510 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Spring事务管理的使用笔记 | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="事务的目的就是要保证数据的高度完整性和一致性。
+在实际的项目中,大多都是使用注解的方式来实现事物,这里也就简单记录下使用@Transactional方法和注意事项.
+
+在xml中添加配置
+1234567&amp;lt;!-- TransactionManager --&amp;gt;&amp;lt;bean id=&quot;transactionManager&quot;	class=&quot;org.springframework.jdbc.d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring事务管理的使用笔记">
+<meta property="og:url" content="http://wangjingling.com/2015/12/29/spring-transaction/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="事务的目的就是要保证数据的高度完整性和一致性。
+在实际的项目中,大多都是使用注解的方式来实现事物,这里也就简单记录下使用@Transactional方法和注意事项.
+
+在xml中添加配置
+1234567&amp;lt;!-- TransactionManager --&amp;gt;&amp;lt;bean id=&quot;transactionManager&quot;	class=&quot;org.springframework.jdbc.d">
+<meta property="og:updated_time" content="2015-12-30T03:22:00.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring事务管理的使用笔记">
+<meta name="twitter:description" content="事务的目的就是要保证数据的高度完整性和一致性。
+在实际的项目中,大多都是使用注解的方式来实现事物,这里也就简单记录下使用@Transactional方法和注意事项.
+
+在xml中添加配置
+1234567&amp;lt;!-- TransactionManager --&amp;gt;&amp;lt;bean id=&quot;transactionManager&quot;	class=&quot;org.springframework.jdbc.d">
+
+    
+    
+    <link rel="icon" href="/img/Monkey.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/Monkey.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?65e3723707294bea42e110a7c6aaf136";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    
+    /*百度统计*/</script>
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto">学而不思则罔,思而不学则殆</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+						<li><a href="/">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="https://www.baidu.com/s?wd=" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 783281470518440700 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/29/spring-transaction/" title="Spring事务管理的使用笔记" itemprop="url">Spring事务管理的使用笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-29T10:02:16.000Z" itemprop="datePublished"> 发表于 2015-12-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p><strong>事务的目的就是要保证数据的高度完整性和一致性。</strong></p>
+<p>在实际的项目中,大多都是使用注解的方式来实现事物,这里也就简单记录下使用<code>@Transactional</code>方法和注意事项.</p>
+<ol>
+<li><p><strong>在xml中添加配置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- TransactionManager --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"transactionManager"</span></span><br><span class="line">	<span class="attribute">class</span>=<span class="value">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"dataSource"</span> <span class="attribute">ref</span>=<span class="value">"dataSource"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">tx:annotation-driven</span> <span class="attribute">transaction-manager</span>=<span class="value">"transactionManager"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用</strong><br>在接口或类的声明处 ,写一个<code>@Transactional</code> 如:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 业务方法需要在一个事物中运行，如果方法运行时，已经存在一个事物中，  </span></span><br><span class="line">  <span class="comment">// 那么加入该事物，否则为自己创建一个新事物。  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(propagation = Propagation.REQUIRED)  </span><br><span class="line"> 	public void <span class="function">test1</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明方法不需要事务，如果方法没有关联到一个事务，容器不会为它开启事物。  </span></span><br><span class="line"><span class="comment">// 如果方法在一个事物中被调用，该事物会被挂起，在方法调用结束后，原先的  </span></span><br><span class="line"><span class="comment">// 事物便会恢复执行。  </span></span><br><span class="line"><span class="variable">@Transactional</span>(propagation = Propagation.NOT_SUPPORTED)  </span><br><span class="line">	public void <span class="function">test2</span>() &#123;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// 表明不管是否存在事物，业务方法总会为自己发起一个新事物。  </span></span><br><span class="line"><span class="comment">// 如果方法已经运行在一个事物中，则原有事物会被挂起，  </span></span><br><span class="line"><span class="comment">// 新的事物会被创建，直到方法执行结束，新事物才算结束，  </span></span><br><span class="line"><span class="comment">// 原先的事务才会被恢复执行。  </span></span><br><span class="line"><span class="variable">@Transactional</span>(propagation = Propagation.REQUIRES_NEW)  </span><br><span class="line">	public void <span class="function">test3</span>() &#123;  </span><br><span class="line">&#125;  </span><br><span class="line"> <span class="comment">// 该属性指定业务方法只能在一个已经存在的事物中执行，  </span></span><br><span class="line"> <span class="comment">// 业务方法不能发起自己的事物，如果业务方法在没有事物的环境  </span></span><br><span class="line"> <span class="comment">// 下调用，容器就会抛出异常。  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(propagation = Propagation.MANDATORY)  </span><br><span class="line"> 	public void <span class="function">test4</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 这个事物属性表明，如果业务方法在某个事务范围内被调用，则方法成为该事物的一部分，  </span></span><br><span class="line"> <span class="comment">// 如果业务方法在事务范围外被调用，则方法在没有事物的环境下执行。  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(propagation = Propagation.SUPPORTS)  </span><br><span class="line"> 	public void <span class="function">test5</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 指定业务方法绝对不能在事物范围内执行。如果业务方法在某个事物中执行，  </span></span><br><span class="line"> <span class="comment">// 容器会抛出异常，只有业务方法没有关联到任何事物，才能正常执行。  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(propagation = Propagation.NEVER)  </span><br><span class="line"> 	public void <span class="function">test6</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 如果一个活动的事物存在，则运行在一个嵌套的事物中，如果没有活动事物，  </span></span><br><span class="line"> <span class="comment">// 则按REQUIRED属性执行，它使用了一个单独的事物，这个事物拥有多个回滚的保存点，  </span></span><br><span class="line"> <span class="comment">// 内部事务的回滚不会对外事物造成影响，它只对DataSourceTransactionManager  </span></span><br><span class="line"> <span class="comment">// 事务管理器起效。  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(propagation = Propagation.NESTED)  </span><br><span class="line"> 	public void <span class="function">test7</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="variable">@Transactional</span>(isolation = Isolation.DEFAULT)  </span><br><span class="line"> public void <span class="function">test8</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 读已提交数据（会出现不可重复读和幻读）  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(isolation = Isolation.READ_COMMITTED)  </span><br><span class="line"> 	public void <span class="function">test9</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 读未提交数据（会出现脏读、不可重复读和幻读）  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(isolation = Isolation.READ_UNCOMMITTED)  </span><br><span class="line"> 	public void <span class="function">test10</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 可重复读（会出现幻读）  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(isolation = Isolation.REPEATABLE_READ)  </span><br><span class="line"> 	public void <span class="function">test11</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 串行化  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(isolation = Isolation.SERIALIZABLE)  </span><br><span class="line"> 	public void <span class="function">test12</span>() &#123;  </span><br><span class="line"> &#125;  </span><br><span class="line"> <span class="comment">// 抛出Exception异常时，记录回滚  </span></span><br><span class="line"> <span class="variable">@Transactional</span>(rollbackFor = Exception.class)  </span><br><span class="line"> 	public void <span class="function">test13</span>() throws Exception &#123;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>参数说明</strong><br><strong>readOnly:</strong> 该属性用于设置当前事务是否为只读事务，设置为true表示只读，false则表示可读写，默认值为false。例如：@Transactional(readOnly=true) <br><br> <strong>rollbackFor:</strong> 该属性用于设置需要进行回滚的异常类数组，当方法中抛出指定异常数组中的异常时，则进行事务回滚。例如：<br>指定单一异常类：@Transactional(rollbackFor=RuntimeException.class)<br>指定多个异常类：@Transactional(rollbackFor={RuntimeException.class, Exception.class})<br><br> <strong>rollbackForClassName:</strong> 该属性用于设置需要进行回滚的异常类名称数组，当方法中抛出指定异常名称数组中的异常时，则进行事务回滚。例如：<br>指定单一异常类名称：@Transactional(rollbackForClassName=”RuntimeException”)<br>指定多个异常类名称：@Transactional(rollbackForClassName={“RuntimeException”,”Exception”}) <br><br> <strong>noRollbackFor:</strong> 该属性用于设置不需要进行回滚的异常类数组，当方法中抛出指定异常数组中的异常时，不进行事务回滚。例如：<br>指定单一异常类：@Transactional(noRollbackFor=RuntimeException.class)<br>指定多个异常类：@Transactional(noRollbackFor={RuntimeException.class, Exception.class}) <br><br> <strong>noRollbackForClassName:</strong> 该属性用于设置不需要进行回滚的异常类名称数组，当方法中抛出指定异常名称数组中的异常时，不进行事务回滚。例如：<br>指定单一异常类名称：@Transactional(noRollbackForClassName=”RuntimeException”)<br>指定多个异常类名称：<br>@Transactional(noRollbackForClassName={“RuntimeException”,”Exception”}) propagation:该属性用于设置事务的传播行为,例如：@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true) <br><br><strong>isolation:</strong> 该属性用于设置底层数据库的事务隔离级别，事务隔离级别用于处理多事务并发的情况，通常使用数据库的默认隔离级别即可，基本不需要进行设置  <br><br><strong>timeout:</strong> 该属性用于设置事务的超时秒数，默认值为-1表示永不超时</p>
+</li>
+<li><p><strong>注意</strong></p>
+</li>
+</ol>
+<ul>
+<li>@Transactional <strong>只能被应用到public方法上</strong>, 对于其它非public的方法,如果标记了@Transactional也不会报错,但方法没有事务功能.</li>
+<li>用 Spring 事务管理器,由spring来负责数据库的打开,提交,回滚.默认遇到运行期例外(throw new RuntimeException(“注释”);)会回滚，即遇到不受检查（unchecked）的例外时回滚；而遇到需要捕获的例外(throw new Exception(“注释”);)不会回滚,需我们以.指定方式来让事务回滚。</li>
+<li>@Transactional 注解可以被应用于接口定义和接口方法、类定义和类的 public 方法上。然而，请注意仅使用 @Transactional 注解不足于开启事务行为，它仅仅 是一种元数据，能够被可以识别 @Transactional 注解和上述的配置适当的具有事务行为的beans所使用。上面的例子中，其实正是 <tx:annotation-driven>元素的出现 开启 了事务行为。</tx:annotation-driven></li>
+<li>Spring团队的建议是你在具体的类（或类的方法）上使用 @Transactional 注解，而不要使用在类所要实现的任何接口上。你当然可以在接口上使用 @Transactional 注解，但是这将只能当你设置了基于接口的代理时它才生效。因为注解是 不能继承 的，这就意味着如果你正在使用基于类的代理时，那么事务的设置将不能被基于类的代理所识别，而且对象也将不会被事务代理所包装（将被确认为严重的）。因 此，请接受Spring团队的建议并且在具体的类上使用 @Transactional 注解。</li>
+</ul>
+<p>参考<a href="https://www.ibm.com/developerworks/cn/java/j-lo-spring-ts1/" target="_blank" rel="external">IBMSpring 事务管理高级应用难点剖析</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wangjingling.com/2015/12/29/spring-transaction/" data-title="Spring事务管理的使用笔记 | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/12/23/svn-note/"  title="工作中版本控制SVN的使用笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>工作中版本控制SVN的使用笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/29/spring-transaction/" data-title="Spring事务管理的使用笔记" data-url="http://wangjingling.com/2015/12/29/spring-transaction/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SpringMVC/" title="SpringMVC">SpringMVC<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://cqchen.cn/" target="_blank" title="晨缘陈往">晨缘陈往</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:admol@admol.net" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> Copyright © 2015 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
