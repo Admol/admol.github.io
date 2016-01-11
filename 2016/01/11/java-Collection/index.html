@@ -1,0 +1,517 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>java-集合笔记 | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="Listpublic interface List&amp;lt;E&amp;gt;extends Collection&amp;lt;E&amp;gt;有序的 collection（也称为序列）,允许重复的元素。常用实现类:
+
+ArrayList：底层使用的是数组结构,特点:查询速度快,增删操作较慢,而且线程不同步.要保证同步,可以使用:List list = Collections.synchronizedList(new">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-集合笔记">
+<meta property="og:url" content="http://wangjingling.com/2016/01/11/java-Collection/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="Listpublic interface List&amp;lt;E&amp;gt;extends Collection&amp;lt;E&amp;gt;有序的 collection（也称为序列）,允许重复的元素。常用实现类:
+
+ArrayList：底层使用的是数组结构,特点:查询速度快,增删操作较慢,而且线程不同步.要保证同步,可以使用:List list = Collections.synchronizedList(new">
+<meta property="og:image" content="http://wangjingling.com/img/java/collection_01.png">
+<meta property="og:updated_time" content="2016-01-11T12:07:49.228Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java-集合笔记">
+<meta name="twitter:description" content="Listpublic interface List&amp;lt;E&amp;gt;extends Collection&amp;lt;E&amp;gt;有序的 collection（也称为序列）,允许重复的元素。常用实现类:
+
+ArrayList：底层使用的是数组结构,特点:查询速度快,增删操作较慢,而且线程不同步.要保证同步,可以使用:List list = Collections.synchronizedList(new">
+
+    
+    
+    <link rel="icon" href="/img/Monkey.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/Monkey.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?65e3723707294bea42e110a7c6aaf136";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    
+    /*百度统计*/</script>
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto">学而不思则罔,思而不学则殆</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+						<li><a href="/">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="https://www.baidu.com/s?wd=" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 783281470518440700 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+					<script type="text/javascript">(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=485749152763208718' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();</script>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/11/java-Collection/" title="java-集合笔记" itemprop="url">java-集合笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-11T02:37:17.000Z" itemprop="datePublished"> 发表于 2016-01-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#List"><span class="toc-number">1.</span> <span class="toc-text">List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Map"><span class="toc-number">2.</span> <span class="toc-text">Map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set"><span class="toc-number">3.</span> <span class="toc-text">Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Collections"><span class="toc-number">4.</span> <span class="toc-text">Collections</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arrays"><span class="toc-number">5.</span> <span class="toc-text">Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系图"><span class="toc-number">6.</span> <span class="toc-text">关系图</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="List">List</h3><p><code>public interface List&lt;E&gt;extends Collection&lt;E&gt;</code><br>有序的 collection（也称为序列）,允许重复的元素。<br>常用实现类:</p>
+<ul>
+<li><p>ArrayList：<br>底层使用的是数组结构,特点:查询速度快,增删操作较慢,而且线程不同步.<br>要保证同步,可以使用:<code>List list = Collections.synchronizedList(new ArrayList());</code>进行包装,默认容量为10.<br>常用方法:<code>add</code>,<code>addAll</code>,<code>remove</code>,<code>indexOf</code>,<code>subList</code>,<code>contains</code>,<code>isEmpty</code>…</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; <span class="built_in">list</span> = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line"><span class="built_in">list</span>.add(<span class="string">"0"</span>);</span><br><span class="line"><span class="built_in">list</span>.add(<span class="string">"1"</span>);</span><br><span class="line"><span class="built_in">list</span>.add(<span class="string">"2"</span>);</span><br><span class="line"><span class="built_in">list</span>.add(<span class="string">"3"</span>);</span><br><span class="line"><span class="built_in">list</span>.add(<span class="string">"4"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">list</span>.size(); i++) &#123;</span><br><span class="line">	<span class="built_in">list</span>.remove(i);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="built_in">list</span>);	<span class="comment">//1,3</span></span><br></pre></td></tr></table></figure>
+<p>容易忽略的方法:<code>trimToSize()</code>//修正容量大小,用多少,给多少,<code>ensureCapacity(int minCapacity)</code>//预设大小<br>自定义ArrayList:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 简单模拟ArrayList</span><br><span class="line"> * @author admol</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class MyArrayList &#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">Object</span>[] data;</span><br><span class="line">	<span class="keyword">private</span> <span class="built_in">int</span> <span class="built_in">size</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> MyArrayList() &#123;</span><br><span class="line">		<span class="keyword">this</span>(<span class="number">10</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> MyArrayList(<span class="built_in">int</span> i) &#123;</span><br><span class="line">		data = <span class="keyword">new</span> <span class="keyword">Object</span>[i];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 返回拥有的元素数</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="built_in">int</span> <span class="built_in">size</span>() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">size</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 获取指定位置上的元素</span><br><span class="line">	 * @param i</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">Object</span> <span class="built_in">get</span>(<span class="built_in">int</span> i) &#123;</span><br><span class="line">		<span class="keyword">return</span> data[i];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 添加元素</span><br><span class="line">	 * @param obj</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">add</span>(<span class="keyword">Object</span> obj) &#123;</span><br><span class="line">		<span class="comment">//存储空间已满,需要扩容</span></span><br><span class="line">		<span class="keyword">if</span> (data.length == <span class="built_in">size</span>) &#123;</span><br><span class="line">			<span class="keyword">Object</span>[] temp = <span class="keyword">new</span> <span class="keyword">Object</span>[<span class="built_in">size</span> + (<span class="built_in">size</span> &gt;&gt; <span class="number">1</span>)];</span><br><span class="line">			<span class="comment">//数组复制:(被复制的数组,从第几个元素开始复制,复制到的目标数组,粘贴的开始位置,需要复制元素个数)</span></span><br><span class="line">			System.arraycopy(data, <span class="number">0</span>, temp, <span class="number">0</span>, <span class="built_in">size</span>);</span><br><span class="line">			data = temp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//存储空间未满</span></span><br><span class="line">		data[<span class="built_in">size</span>++] = obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 删除指定位置的元素</span><br><span class="line">	 * @param i</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> remove(<span class="built_in">int</span> i) &#123;</span><br><span class="line">		<span class="comment">//例:共10个元素,要删除的元素下标为3,实际上是从下标4开始向下标3复制粘贴(10-3-1)元素</span></span><br><span class="line">		System.arraycopy(data, i + <span class="number">1</span>, data, i, <span class="built_in">size</span> - i - <span class="number">1</span>);</span><br><span class="line">		<span class="built_in">size</span>--;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 删除指定元素</span><br><span class="line">	 * @param obj</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> remove(<span class="keyword">Object</span> obj) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">size</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (data[i].equals(obj)) &#123;</span><br><span class="line">				remove(i);</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LinkedList<br>使用双向链表实现存储，允许所有元素（包括 null）。非线程安全,要保证同步,可以使用<code>List list = Collections.synchronizedList(new LinkedList());</code>进行包装,可以被当作堆栈和队列来使用。</p>
+</li>
+<li><p>Vector<br>也是一个有序集合,允许重复元素,并且线程安全.</p>
+</li>
+</ul>
+<h3 id="Map">Map</h3><ul>
+<li>HashMap<br>基于哈希表的 Map 接口的实现,存储键值对，键是唯一的,允许使用 null 值和 null 键,非同步(除了非同步和允许使用 null 之外，HashMap 类与 Hashtable 大致相同),同步可以使用<code>Map m = Collections.synchronizedMap(new HashMap(...));</code><br>常用方法:<ol>
+<li>添加。 put(key,value)：当存储的键相同时，新的值会替换老的值，并将老值返回。如果键没有重复，返回null。 void putAll(Map); </li>
+<li>删除。 void clear()：清空 value remove(key) ：删除指定键。 </li>
+<li>判断。 boolean isEmpty()： boolean containsKey(key)：是否包含key boolean containsValue(value) ：是否包含value </li>
+<li>取出。 int size()：返回长度 value get(key) ：通过指定键获取对应的值。如果返回null，可以判断该键不存在。 当然有特殊情况，就是在hashmap集合中，是可以存储null键null值的。<br>Collection values()：获取map集合中的所有的值。</li>
+</ol>
+</li>
+<li>HashTable<br>底层是哈希表数据结构，不可以存入null键null值，是线程同步的.<br>Hashtable 的实例有两个参数影响其性能：<code>初始容量</code> 和<code>加载因子</code>(默认.75)</li>
+</ul>
+<h3 id="Set">Set</h3><ul>
+<li>HashSet<br>底层数据结构是哈希表(实际上是一个 HashMap 实例)，允许使用 null 元素,唯一且无序,非线程安全.通过元素的hashcode和equals来保证元素的唯一性。如果元素的hashcode值相同，才会判断equals是否为true； 如果元素的hashcode的值不同，不会调用equals。</li>
+</ul>
+<h3 id="Collections">Collections</h3><p>提供对集合进行操作的一个包装器,实现对集合的查找、排序、替换、 线程安全化（将非同步的集合转换成同步的）等操作。常用方法:<br>Collections.max(list);//返回list中字典顺序最大的元素。<br>int index = Collections.binarySearch(list,”zz”);//二分查找，返回角标。必须是有序的<br>Collections.fill();//可以将list集合中的所有元素替换成指定元素。<br>Collections.repalceAll(list,”要被替换的”,”替换的值”);//可以将list集合中的指定元素替换成指定元素。 Collections.reverse（）; 反转<br>Collections.reverseOrder(参数是比较器);//逆向反转排序。倒序。。<br>Collections.shuffle(list);//随机对list中的元素进行位置的置换。<br>synchronizedXXX(XXX);非同步集合转成同步集合的方法：</p>
+<h3 id="Arrays">Arrays</h3><p>用于操作数组对象的工具类，里面都是静态方法。<br>Arrays.asList：可以从 Array 转换成 List。可以作为其他集合类型构造器的参数。<br>Arrays.binarySearch：在一个已排序的或者其中一段中快速查找。<br>Arrays.copyOf：如果你想扩大数组容量又不想改变它的内容的时候可以使用这个方法。<br>Arrays.copyOfRange：可以复制整个数组或其中的一部分。<br>Arrays.deepEquals、Arrays.deepHashCode：Arrays.equals/hashCode的高级版本，支持子数组的操作。<br>Arrays.equals：如果你想要比较两个数组是否相等，应该调用这个方法而不是数组对象中的 equals方法（数组对象中没有重写equals()方法，所以这个方法之比较引用而不比较内容）。<br>Arrays.fill：用一个给定的值填充整个数组或其中的一部分。<br>Arrays.hashCode：用来根据数组的内容计算其哈希值（数组对象的hashCode()不可用）。<br>Arrays.sort：对整个数组或者数组的一部分进行排序。也可以使用此方法用给定的比较器对对象数组进行排序。<br>Arrays.toString：打印数组的内容。</p>
+<h3 id="关系图">关系图</h3><p><img src="/img/java/collection_01.png" alt="a"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wangjingling.com/2016/01/11/java-Collection/" data-title="java-集合笔记 | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/01/01/2015-summary/"  title="2015">
+ <strong>下一篇：</strong><br/> 
+ <span>2015
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/01/11/java-Collection/" data-title="java-集合笔记" data-url="http://wangjingling.com/2016/01/11/java-Collection/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#List"><span class="toc-number">1.</span> <span class="toc-text">List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Map"><span class="toc-number">2.</span> <span class="toc-text">Map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set"><span class="toc-number">3.</span> <span class="toc-text">Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Collections"><span class="toc-number">4.</span> <span class="toc-text">Collections</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arrays"><span class="toc-number">5.</span> <span class="toc-text">Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系图"><span class="toc-number">6.</span> <span class="toc-text">关系图</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SpringMVC/" title="SpringMVC">SpringMVC<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://cqchen.cn/" target="_blank" title="晨缘陈往">晨缘陈往</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:admol@admol.net" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> Copyright © 2016 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
