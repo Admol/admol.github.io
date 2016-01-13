@@ -26,7 +26,7 @@ SV">
 <meta property="og:image" content="http://wangjingling.com/img/svn/svn_003.png">
 <meta property="og:image" content="http://wangjingling.com/img/svn/svn_004.png">
 <meta property="og:image" content="http://wangjingling.com/img/svn/svn_005.png">
-<meta property="og:updated_time" content="2015-12-28T04:20:37.065Z">
+<meta property="og:updated_time" content="2016-01-13T09:22:10.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工作中版本控制SVN的使用笔记">
 <meta name="twitter:description" content="SVN是一个版本控制系统,在实际的开发工作当中用到的非常多,本文旨在记录一下在实际开发工作过程中使用到的常用SVN功能,供以后查阅学习.
@@ -42,6 +42,7 @@ SV">
     <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
     
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="/css/main.css" type="text/css" href="">
     <!-- 百度统计 -->
     <script>
       var _hmt = _hmt || [];
@@ -112,7 +113,7 @@ SV">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN_Checkout"><span class="toc-number">2.</span> <span class="toc-text">SVN Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与资源库同步"><span class="toc-number">3.</span> <span class="toc-text">与资源库同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新与提交"><span class="toc-number">4.</span> <span class="toc-text">更新与提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并代码"><span class="toc-number">5.</span> <span class="toc-text">合并代码</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN_Checkout"><span class="toc-number">2.</span> <span class="toc-text">SVN Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与资源库同步"><span class="toc-number">3.</span> <span class="toc-text">与资源库同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新与提交"><span class="toc-number">4.</span> <span class="toc-text">更新与提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并代码"><span class="toc-number">5.</span> <span class="toc-text">合并代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决冲突"><span class="toc-number">6.</span> <span class="toc-text">解决冲突</span></a></li></ol>
 		
 		</div>
 		
@@ -122,8 +123,8 @@ SV">
 <p>假如项目分支名称为<code>project_V1.0.1_2015_01_01</code>,则我们一般是再在<code>d:\code\branches</code>目录下新建一个名为<code>project_V1.0.1_2015_01_01</code>的文件夹,然后将分支checkout到该文件夹目录下.在以后有新的分支时,同样以分支名命名一个新的文件夹,然后check下来。checkout主干时无需在<code>trunk</code>目录下新建文件夹。最后我们会发现我们本地的目录结构是和SVN服务器上目录结构一致。</p>
 <h3 id="与资源库同步">与资源库同步</h3><p>在update和commit操作之前,我们都需要与资源库同步一下,目的是检查一下别人是否在你操作之前已经提交过代码造成了代码冲突,有冲突的文件默认一般会有一个红色的标记,当有冲突时就需要我们手动解决冲突后再执行update或者commit操作,这里记录下以eclipse为例,怎么解决代码冲突.<br>如下图中,左边表示本地的代码,右边表示远程服务器上的代码,同事在我之前提交了4个接口方法,左边<code>public void test();</code>方法是我新加的代码,<br><img src="/img/svn/svn_001.png"><br>这时我在同步代码时就需要先解决冲突,这是只需要点击箭头指向的那个小圈<code>Copy Current change from Right to Left</code>就可以了,右边的代码会被copy到左边去.然后保存,在文件上鼠标右键点击<img src="/img/svn/svn_002.png">,然后就可以更新代码了。当然你也可以先更新下来代码后再解决冲突.不一定需要先解决冲突在更新…</p>
 <h3 id="更新与提交">更新与提交</h3><p>建议一定先同步后在执行更新或者提交操作,这样你好大家也都好.commit时一定写好提交注释.</p>
-<h3 id="合并代码">合并代码</h3><p>分支代码开发完了,我们需要将代码合并到主干上去进行测试,或者两个分支在同时进行不同功能开发时,最后我们需要把一个分支的代码合并到另外一个分支上去.首先我们需要知道我们的目标是什么,合并到分支,合并到主干,到分支,到主干!!!例如我们分支合并到主干:<br>已主干为主,在<img src="/img/svn/svn_003.png">上右键,选择<img src="/img/svn/svn_004.png">,选择<code>Merge a range of revisions</code>,点击<code>next</code>,然后在 <code>URL to merge from</code> 填写svn服务器上分支路径,如:<br><img src="/img/svn/svn_005.png"><br>然后点击<code>Next</code>,再点击<code>Test merge</code>,开始测试合并代码了,这时如果文件有冲突会被标记为红色,注意,这不是正真的合并代码,正式的合并需要直接点击<code>Merge</code>,Merger过程中可能会出现冲突需要我们去解决。</p>
-  
+<h3 id="合并代码">合并代码</h3><p>分支代码开发完了,我们需要将代码合并到主干上去进行测试,或者两个分支在同时进行不同功能开发时,最后我们需要把一个分支的代码合并到另外一个分支上去.首先我们需要知道我们的目标是什么,合并到分支,合并到主干,到分支,到主干!!!到哪里,重点就在哪里,就已谁为标准,例如我们分支合并到主干:<br>就以主干为主,在<img src="/img/svn/svn_003.png">上右键,选择<img src="/img/svn/svn_004.png">,选择<code>Merge a range of revisions</code>,点击<code>next</code>,然后在 <code>URL to merge from</code> 填写svn服务器上分支路径,如:<br><img src="/img/svn/svn_005.png"><br>然后点击<code>Next</code>,再点击<code>Test merge</code>,开始测试合并代码了,这时如果文件有冲突会被标记为红色,注意,这不是真正的合并代码,正式的合并需要直接点击<code>Merge</code>,合并成功后,只是合并到了我们本地,需要的话,还需自己commit到服务器上.Merger的过程中还可能会出现冲突,出现冲突我们怎么解决呢。</p>
+<h3 id="解决冲突">解决冲突</h3>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -184,7 +185,7 @@ SV">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN_Checkout"><span class="toc-number">2.</span> <span class="toc-text">SVN Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与资源库同步"><span class="toc-number">3.</span> <span class="toc-text">与资源库同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新与提交"><span class="toc-number">4.</span> <span class="toc-text">更新与提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并代码"><span class="toc-number">5.</span> <span class="toc-text">合并代码</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVN_Checkout"><span class="toc-number">2.</span> <span class="toc-text">SVN Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与资源库同步"><span class="toc-number">3.</span> <span class="toc-text">与资源库同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新与提交"><span class="toc-number">4.</span> <span class="toc-text">更新与提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#合并代码"><span class="toc-number">5.</span> <span class="toc-text">合并代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决冲突"><span class="toc-number">6.</span> <span class="toc-text">解决冲突</span></a></li></ol>
  
   </div>
 
