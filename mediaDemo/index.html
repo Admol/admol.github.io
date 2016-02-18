@@ -1,0 +1,145 @@
+
+  
+    <!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Media Query Demo</title>
+<!-- 引入兼容js -->
+<!-- <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+ -->
+
+<style type="text/css">
+
+body {
+	font: 1em Arial;
+}
+a {
+	color: #669;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+h1 {
+	font: bold 36px/100% Arial, Helvetica, sans-serif;
+}
+
+
+#pagewrap {
+	padding: 5px;
+	width: 960px;
+	margin: 20px auto;
+}
+#header {
+	height: 180px;
+}
+#content {
+	width: 600px;
+	float: left;
+}
+#sidebar {
+	width: 300px;
+	float: right;
+}
+#footer {
+	clear: both;
+}
+
+/* //媒体查询开始 ,可以尝试注释掉所有媒体查询看看效果*/
+@media screen and (max-width: 980px) {
+	#pagewrap {
+		width: 94%;
+	}
+	#content {
+		width: 65%;
+		background-color: blueviolet;
+	}
+	#sidebar {
+		width: 30%;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	#content {
+		width: auto;
+		float: none;
+		background-color: red;
+	}
+	#sidebar {
+		width: auto;
+		float: none;
+	}
+}z
+@media screen and (max-width: 480px) {
+	#header {
+		height: auto;
+	}
+	h1 {
+		font-size: 24px;
+	}
+	#sidebar {
+		display: none;
+	}
+}
+
+/* //媒体结束 */
+
+#content {
+	background: #blueviolet;
+}
+#sidebar {
+	background: #f0efef;
+}
+#header, #content, #sidebar {
+	margin-bottom: 5px;
+}
+#pagewrap, #header, #content, #sidebar, #footer {
+	border: solid 1px #000;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+	<div id="header">
+		<h1>Header</h1>
+		<p> 
+		</p>
+	</div>
+
+	<div id="content">
+		<h2>Content</h2>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+		<p>text</p>
+	</div>
+	<div id="sidebar">
+		<h3>Sidebar</h3>
+		<p>text</p>
+		<p>text</p>
+	</div>
+	
+	<div id="footer">
+		<h4>Footer</h4>
+	</div>
+
+</div>
+
+
+
+</body></html>
+  
