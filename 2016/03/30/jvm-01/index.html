@@ -1,0 +1,534 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>虚拟机类加载机制 | admol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="adoml">
+    
+
+    
+    <meta name="description" content="虚拟机把描述类的数据从Class文件加载到内存,并对数据进行校验、转换解析和初始化,最终形成可以被虚拟机直接使用的Java类型,这就是虚拟机的类加载机制
+类生命周期加载(Loading)验证(Verification) 准备(Preparation) 解析(Resolution) 初始化(Initialization) 使用(Using)  卸载(Unloading)
+第一阶段:加载虚拟机规范中没">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机类加载机制">
+<meta property="og:url" content="http://wangjingling.com/2016/03/30/jvm-01/index.html">
+<meta property="og:site_name" content="admol">
+<meta property="og:description" content="虚拟机把描述类的数据从Class文件加载到内存,并对数据进行校验、转换解析和初始化,最终形成可以被虚拟机直接使用的Java类型,这就是虚拟机的类加载机制
+类生命周期加载(Loading)验证(Verification) 准备(Preparation) 解析(Resolution) 初始化(Initialization) 使用(Using)  卸载(Unloading)
+第一阶段:加载虚拟机规范中没">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b47a2e43gw1f2xizbw69ej20mr0jl0uc.jpg">
+<meta property="og:updated_time" content="2016-04-15T09:48:44.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟机类加载机制">
+<meta name="twitter:description" content="虚拟机把描述类的数据从Class文件加载到内存,并对数据进行校验、转换解析和初始化,最终形成可以被虚拟机直接使用的Java类型,这就是虚拟机的类加载机制
+类生命周期加载(Loading)验证(Verification) 准备(Preparation) 解析(Resolution) 初始化(Initialization) 使用(Using)  卸载(Unloading)
+第一阶段:加载虚拟机规范中没">
+
+    
+    
+    <link rel="icon" href="/img/Monkey.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/Monkey.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/Monkey.ico">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="/css/main.css" type="text/css" href="">
+    <!-- 百度统计 -->
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?65e3723707294bea42e110a7c6aaf136";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    
+    /*百度统计*/</script>
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="admol">admol</a></h1>
+				<h2 class="blog-motto">不要着急,你想要的,岁月都会给你</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">统计</a></li>
+					
+						<li><a href="/">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="https://www.baidu.com/s?wd=" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 783281470518440700 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/30/jvm-01/" title="虚拟机类加载机制" itemprop="url">虚拟机类加载机制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="adoml" target="_blank" itemprop="author">adoml</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-30T08:22:52.000Z" itemprop="datePublished"> 发表于 2016-03-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类生命周期"><span class="toc-number">1.</span> <span class="toc-text">类生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段:加载"><span class="toc-number">1.1.</span> <span class="toc-text">第一阶段:加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段:验证"><span class="toc-number">1.2.</span> <span class="toc-text">第二阶段:验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三阶段:准备"><span class="toc-number">1.3.</span> <span class="toc-text">第三阶段:准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四阶段:解析"><span class="toc-number">1.4.</span> <span class="toc-text">第四阶段:解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五阶段:初始化"><span class="toc-number">1.5.</span> <span class="toc-text">第五阶段:初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类加载器"><span class="toc-number">2.</span> <span class="toc-text">类加载器</span></a></li></ol>
+		
+		</div>
+		
+		<p><strong>虚拟机把描述类的数据从Class文件加载到内存,并对数据进行校验、转换解析和初始化,最终形成可以被虚拟机直接使用的Java类型,这就是虚拟机的类加载机制</strong></p>
+<h2 id="类生命周期">类生命周期</h2><p>加载(Loading)验证(Verification) 准备(Preparation) 解析(Resolution) 初始化(Initialization) 使用(Using)  卸载(Unloading)</p>
+<h3 id="第一阶段:加载">第一阶段:加载</h3><p>虚拟机规范中没有约束什么时候需要开始加载类,具体是根据虚拟机的具体实现来自由把握什么时候加载类.在加載阶段,虚拟机需要完成以下三件事情:</p>
+<ol>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流.</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构.</li>
+<li>在java堆中生成一个代表这个类的java.lang.Class对象,最为方法区这些数据的访问入口</li>
+</ol>
+<h3 id="第二阶段:验证">第二阶段:验证</h3><p>验证的目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求,并且不会危害虚拟机的自身安全<br>不同的虚拟机对类验证的实现可能会有所不同,但大致都会完成四个阶段的验证过程:</p>
+<ol>
+<li>文件格式验证</li>
+<li>元数据验证</li>
+<li>字节码验证</li>
+<li>符号引用验证</li>
+</ol>
+<h3 id="第三阶段:准备">第三阶段:准备</h3><p>准备是正式为类变量分配内存并设置类变量初始化值的阶段(仅包括被static修饰的变量,不包括实例变量),假如一个类变量定义如下:<br><code>public staic int value=123;</code><br>那么变量value在准备阶段过后的初始值为0而不是123.<br>特殊情况,假如一个类变量定义如下:<br><code>public staic final int value=123;</code><br>在准备阶段,变量value会被赋值为123</p>
+<h3 id="第四阶段:解析">第四阶段:解析</h3><p>解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程</p>
+<h3 id="第五阶段:初始化">第五阶段:初始化</h3><p>类初始化阶段是类加载过程的最后一步,虚拟机规定了有且只有4种情况必须立即对类进行初始化(加载、验证、准备续在此之前):</p>
+<ol>
+<li><p>遇到new 、getstatic 、 putstatic 、invokestatic 这4条字节码指令时,如果类没有初始化,则需要先触发其初始化(场景:使用new关键字实例化对象的时候、读取或设置一个类的静态字段(被final修饰,已存在编译期把结果放入常量池的静态字段除外)的时候、以及调用一个类的静态方法的时候)</p>
+</li>
+<li><p>使用java.lang.reflect 包的方法对类进行反射调用的时候,如果类没有进行初始化,需要触发其初始化.</p>
+</li>
+<li><p>当初始化一个类的时候,发现其父类还没有进行过初始化的时候,需要触发其初始化(接口除外,只有在使用到其父类接口时才会初始化).</p>
+</li>
+<li><p>当虚拟机启动时,用户需指定一个要执行的主类(包含main()方法的那个类),虚拟机会先初始化这个主类</p>
+</li>
+</ol>
+<p>例1:<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestClassInit</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title">TestNewClass</span> &#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">TestNewClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"TestNewClass init....."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</span><br><span class="line">		TestNewClass s = <span class="keyword">new</span> TestNewClass();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果:<code>TestNewClass init.....</code></p>
+<p>例2:<br>读取一个静态字段时<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestClassInit</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title">SupperClass</span> &#123;</span><br><span class="line">		<span class="keyword">static</span> &#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"SupperClass init....."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">static</span> String <span class="keyword">value</span> = <span class="string">"admol"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title">SubClass</span> <span class="title">extends</span> <span class="title">SupperClass</span> &#123;</span><br><span class="line">		<span class="keyword">static</span> &#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"SubClass init....."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</span><br><span class="line">		<span class="comment">//读取一个类的静态字段时,初始化该类</span></span><br><span class="line">		System.<span class="keyword">out</span>.println(SubClass.<span class="keyword">value</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果:<code>SupperClass init.....</code>,对于静态字段,只有直接定义这个字段的类才会被初始化,因此这里通过子类调用父类的静态字段,只会触发父类进行初始化.(可以给SupperClass 静态字段加一个final 再次进行测试)</p>
+<p>例3:<br>当初始化一个类的时候,发现其父类没有初始化时先初始化其父类<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestClassInit</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title">SupperClass</span> &#123;</span><br><span class="line">		<span class="keyword">static</span> &#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"SupperClass init....."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">static</span> String <span class="keyword">value</span> = <span class="string">"admol"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">class</span> <span class="title">SubClass</span> <span class="title">extends</span> <span class="title">SupperClass</span> &#123;</span><br><span class="line">		<span class="keyword">static</span> &#123;</span><br><span class="line">			System.<span class="keyword">out</span>.println(<span class="string">"SubClass init....."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</span><br><span class="line">		SubClass subClass = <span class="keyword">new</span> SubClass();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果:<br><code>SupperClass init.....</code><br><code>SubClass init.....</code></p>
+<h2 id="类加载器">类加载器</h2><p>虚拟机设计团队把类加载阶段的”通过一个类的全限定名来获取描述此类的二进制字节流”这个动作放到java虚拟机外部去实现,以便让应用程序自己觉得如何去获取所需的类.实现这个动作的代码模块被称为<code>&quot;类加载器&quot;</code>.<br>站在java虚拟机的角度可以分为两种类加载器:1.启动类加载器(Bootstap ClassLoader) 2.其他类加载器<br>划分得更细致一些,大多数提供了三种类加载器:</p>
+<ul>
+<li>启动类加载器(Bootstrap ClassLoader): 这个类加载器主要负责加载<java_home>\lib目录下的类,或者被-Xbootclasspath 参数指定路径中的并被虚拟机识别的类.</java_home></li>
+<li>扩展类加载器(Extension ClassLoader): 这个类加载器主要负责加载<java_home>\lib\ext目录中的类,或者被java.ext.dirs系统变量所指定路径中的所有类库.</java_home></li>
+<li>应用程序类加载器(Application ClassLoader): 此类是ClassLoader类中的getSystemClassLoader()方法的返回值,一般称为系统类加载器,它负责架子啊用户类路径(ClassPath)上所指定的类库.</li>
+</ul>
+<p>类加载器之间关系图:<br><img src="http://ww1.sinaimg.cn/large/b47a2e43gw1f2xizbw69ej20mr0jl0uc.jpg" alt=""><br>这种层次关系被称之为双亲委派模型,此模型要求除了顶层的启动类加载器外,其余类加载器都应有自己的父类加载器,如果一个类加载器收到了类加载请求,它首先不会自己去尝试加载这个类,而是把这个请求委派给父类加载器去完成,每一个层次的类加载器都是如此,只有当父类反馈自己无法完成这个类加载请求时,子类加载器才会尝试自己去加载.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://wangjingling.com/2016/03/30/jvm-01/" data-title="虚拟机类加载机制 | admol" data-tsina="3027906115" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/29/baseweb/"  title="Maven项目管理:SpringMVC+Mybatis+Velocity整合笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Maven项目管理:SpringMVC+Mybatis+Velocity整合笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/03/30/jvm-01/" data-title="虚拟机类加载机制" data-url="http://wangjingling.com/2016/03/30/jvm-01/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类生命周期"><span class="toc-number">1.</span> <span class="toc-text">类生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段:加载"><span class="toc-number">1.1.</span> <span class="toc-text">第一阶段:加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段:验证"><span class="toc-number">1.2.</span> <span class="toc-text">第二阶段:验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三阶段:准备"><span class="toc-number">1.3.</span> <span class="toc-text">第三阶段:准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四阶段:解析"><span class="toc-number">1.4.</span> <span class="toc-text">第四阶段:解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五阶段:初始化"><span class="toc-number">1.5.</span> <span class="toc-text">第五阶段:初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类加载器"><span class="toc-number">2.</span> <span class="toc-text">类加载器</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Spring/" title="Spring">Spring<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/web/" title="web">web<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信/" title="微信">微信<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分享/" title="分享">分享<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mybatis/" title="mybatis">mybatis<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/版本控制/" title="版本控制">版本控制<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SpringMVC/" title="SpringMVC">SpringMVC<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/dubbo/" title="dubbo">dubbo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://cqchen.cn/" target="_blank" title="晨缘陈往">晨缘陈往</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li></ul>
+  </div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3027906115" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/Admol" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:admol@admol.net" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank" title="蜀ICP备15007676号">蜀ICP备15007676号</a> | Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> Copyright © 2016 
+		
+		<a href="/about" target="_blank" title="adoml">adoml</a>
+		
+		
+		</p>
+		<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+		</script>
+		
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"admol"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
